@@ -1,0 +1,22 @@
+{
+  "banner": "always",
+  "last_logged_in_user": {
+    "host": "https://github.com",
+    "login": "kawasawa"
+  },
+  "logged_in_users": [
+    {
+      "host": "https://github.com",
+      "login": "kawasawa"
+    }
+  ],
+  "model": "gpt-5-mini",
+  "render_markdown": true,
+  "theme": "auto",
+  "trusted_folders": [
+    "/Users/kawasawa"
+  ],
+  "asked_setup_terminals": [
+    "vscode"
+  ]
+}

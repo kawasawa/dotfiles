@@ -1,0 +1,7 @@
+[tools]
+go = "latest"
+k6 = "latest"
+node = "lts"  # Node.js は偶数バージョンが LTS になる
+python = "latest"
+terraform = ["1.4.7", "latest"]
+trivy = "latest"
