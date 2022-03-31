@@ -1,0 +1,170 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/gpt-6-luna",
+  "agent": {
+    "build": {
+      "model": "opencode-go/kimi-k2.7-code",
+    },
+    "plan": {
+      "model": "opencode-go/gpt-6-luna",
+      "variant": "xhigh",
+      // グローバルの edit ask より後に評価され、plan の edit deny を維持する
+      "permission": {
+        "edit": {
+          "*.github/workflows/*": "deny",
+        },
+      },
+    },
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+    },
+  },
+
+  // 最後にマッチしたルールが優先される
+  // read/edit は worktree からの相対パス(外部は ../ 始まり)で照合され、* は / にもマッチする
+  "permission": {
+    "edit": {
+      // "*" を書くと plan エージェントの edit deny を上書きするため書かない
+      "*.github/workflows/*": "ask",
+    },
+
+    "read": {
+      "*": "allow",
+
+      "*.ssh/*": "deny",
+      "*.gnupg/*": "deny",
+      "*.git-credentials": "deny",
+      "*.config/git/credentials": "deny",
+      "*.docker/config.json": "deny",
+      "*.kube/config": "deny",
+      "*.aws/*": "deny",
+      "*.azure/*": "deny",
+      "*.config/gcloud/*": "deny",
+      "*.envrc": "deny",
+      "*.netrc": "deny",
+      "*.npmrc": "deny",
+      "*.zsh_history": "deny",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.jks": "deny",
+      "*.key": "deny",
+      "*.keystore": "deny",
+      "*.pem": "deny",
+      "*.pfx": "deny",
+      "*.p8": "deny",
+      "*.p12": "deny",
+    },
+
+    "bash": {
+      "*": "ask",
+
+      // ===========================================================================
+      // allow
+      // ===========================================================================
+
+      // Claude Code の組み込み read-only コマンド相当
+      // ただし OpenCode は sandbox が無く bash に read の deny も効かないため、ファイル内容を読む cat/head/tail/grep/rg/jq は allow しない
+      "ls *": "allow",
+      "tree *": "allow",
+      "wc *": "allow",
+      "echo *": "allow",
+      "git branch --show-current": "allow",
+      "git branch --list": "allow",
+      "git status *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "git diff *": "allow",
+      "git blame *": "allow",
+      "git describe *": "allow",
+      "git merge-base *": "allow",
+      "git rev-parse *": "allow",
+
+      "wait": "allow",
+      "touch *": "allow",
+      "mkdir *": "allow",
+
+      "git add *": "allow",
+      "git mv *": "allow",
+      "git restore *": "allow",
+      "git commit *": "allow",
+      "git check-ignore *": "allow",
+      "git ls-tree *": "allow",
+      "git --no-pager log *": "allow",
+      "git --no-pager show *": "allow",
+      "git --no-pager diff *": "allow",
+      "gh repo view *": "allow",
+      "gh issue list *": "allow",
+      "gh issue view *": "allow",
+      "gh pr list *": "allow",
+      "gh pr view *": "allow",
+      "gh pr diff *": "allow",
+
+      "npm ls *": "allow",
+      "npm list *": "allow",
+      "npm view *": "allow",
+      "npm test *": "allow",
+      "npm run format *": "allow",
+      "npm run lint *": "allow",
+      "npm run typecheck *": "allow",
+      "npm run test *": "allow",
+      "npm run build *": "allow",
+      "npx prettier *": "allow",
+      "npx eslint *": "allow",
+      "npx tsc *": "allow",
+      "npx jest *": "allow",
+      "npx vitest *": "allow",
+      "npx playwright *": "allow",
+
+      "xcode-select -p": "allow",
+      "xcrun simctl list *": "allow",
+      "xcodebuild *": "allow",
+      "swift build *": "allow",
+      "code --list-extensions": "allow",
+
+      // リダイレクトは allow 済みコマンドでも確認
+      // OpenCode はリダイレクト込みの文字列照合のみのため、allow 済みコマンドならリダイレクト先へ確認なしで書き込める
+      //   Claude Code はリダイレクト先を Edit 相当で検査し、保護パス/sandbox でも書き込みを制限するため不要
+      // deny を上書きしないよう deny より前に置く
+      // `{ ...; } > f` のように括ったリダイレクトは照合対象外
+      "*>*": "ask",
+
+      // ===========================================================================
+      // deny
+      // ===========================================================================
+
+      "env": "deny",
+      "printenv *": "deny",
+      "su *": "deny",
+      "sudo *": "deny",
+      "rm -rf *": "deny",
+      "rm -fr *": "deny",
+      "find * -delete*": "deny",
+      "find * -exec*": "deny",
+      "find * -ok*": "deny",
+      "find * -fls*": "deny",
+      "find * -fprint*": "deny",
+      "rg --pre*": "deny",
+      "rg * --pre*": "deny",
+      "rg --hostname-bin*": "deny",
+      "rg * --hostname-bin*": "deny",
+
+      "git credential*": "deny",
+      "git push -f *": "deny",
+      "git push --force *": "deny",
+      "git reset --hard *": "deny",
+      "gh auth token *": "deny",
+      "gh repo edit *": "deny",
+      "gh repo delete *": "deny",
+      "gh pr merge *": "deny",
+      "gh pr close *": "deny",
+
+      "npm publish *": "deny",
+    },
+
+    "websearch": "allow",
+    "webfetch": "ask",
+  },
+}

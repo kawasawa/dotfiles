@@ -1,0 +1,16 @@
+#!/bin/sh
+# hash: {{ include "../packages/mise.toml" | sha256sum }}
+set -euo pipefail
+
+echo "=== run_onchange_after_mise-install ==="
+
+# onchange は対象ファイルが変更されたときにしか発火しない
+# ただしスクリプトが失敗した場合は例外で、次回 apply 時にリトライされる
+# そのためガード時は必ず異常終了を伝えること
+if ! type mise > /dev/null 2>&1; then
+    echo "mise not installed, skipped"
+    exit 1
+fi
+
+mise install
+mise trust ~/.config/mise/config.toml

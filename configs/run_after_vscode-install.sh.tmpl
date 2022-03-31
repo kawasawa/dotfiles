@@ -1,0 +1,33 @@
+#!/bin/sh
+set -euo pipefail
+
+echo "=== run_after_vscode-install ==="
+
+if ! type code > /dev/null 2>&1; then
+    echo "code not installed, skipped"
+    exit 1
+fi
+
+# 一件でも失敗すれば記録する
+_failed=0
+
+# 拡張機能 ID は大文字小文字を区別しないため、小文字化して突き合わせる
+_installed=$(code --list-extensions | tr '[:upper:]' '[:lower:]')
+
+# `[ -n "$_extension" ]` で末尾に改行が無い場合も取りこぼさない
+while IFS= read -r _extension || [ -n "$_extension" ]; do
+    [ -n "$_extension" ] || continue
+
+    # インストール済みはスキップする
+    if printf '%s\n' "$_installed" | grep -Fqx "$(printf '%s' "$_extension" | tr '[:upper:]' '[:lower:]')"; then
+        continue
+    fi
+
+    # ループの標準入力を奪われないよう /dev/null を渡す
+    code --install-extension "$_extension" < /dev/null || _failed=1
+
+    # インストールを連続実施するとロックが取れずにコケるので間隔を空ける
+    sleep 0.5
+done < "{{ .chezmoi.workingTree }}/packages/vscode"
+
+exit "$_failed"
