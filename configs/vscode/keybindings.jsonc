@@ -1,0 +1,271 @@
+// ******************************************************************************
+// VSCode キーバインド設定ファイル (macOS用)
+// ------------------------------------------------------------------------------
+// 事前に下記を実施する。
+// ①システム設定 > キーボード > キーボードショートカット... > キーボード
+// 　・次のウィンドウを操作対象にする [⌘ @] のチェックを外す
+// ------------------------------------------------------------------------------
+// 凡例
+// 　⇧: shift
+// 　⌥: option
+// 　⌘: command
+// 　^: control
+// 　⏎: enter
+// 　⌫: delete
+// ******************************************************************************
+
+[
+  // ------------------------------------------------------------------------------
+  // Windows の操作感に合わせる
+  // ------------------------------------------------------------------------------
+
+  // やり直し: ⌘ Y
+  {
+    "key": "cmd+y",
+    "command": "redo",
+  },
+
+  // 行へ移動: ⌘ G
+  {
+    "key": "cmd+g",
+    "command": "workbench.action.gotoLine",
+  },
+
+  // インテリセンス: ⌘ [Space]
+  {
+    "key": "cmd+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly",
+  },
+
+  // ターミナルの表示: ⌘ @
+  {
+    "key": "cmd+[BracketLeft]",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active",
+  },
+
+  // ターミナル内で改行: ⇧ ⏎
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "\\\r\n" },
+  },
+
+  // 前に戻る: ^ ←
+  // 次に進む: ^ →
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.navigateBack",
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.navigateForward",
+  },
+
+  // ------------------------------------------------------------------------------
+  // Vim の操作感に合わせる
+  // ------------------------------------------------------------------------------
+
+  // PageUp:   ^ U
+  // PageDown: ^ D
+  {
+    "key": "ctrl+u",
+    "command": "cursorPageUp",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "ctrl+d",
+    "command": "cursorPageDown",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+
+  // 列選択: ^ V
+  {
+    "key": "ctrl+v",
+    "command": "editor.action.toggleColumnSelection",
+  },
+
+  // ------------------------------------------------------------------------------
+  // 操作性を向上させる
+  // ------------------------------------------------------------------------------
+
+  // ESC で閉じる
+  // - 検索エディター
+  // - 差分エディター
+  {
+    "key": "escape",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "inSearchEditor",
+  },
+  {
+    "key": "escape",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "isInDiffEditor"
+  },
+  
+  // ターミナル内で改行: Ctrl ⏎
+  {
+    "key": "ctrl+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "\\\r\n" },
+  },
+
+  // GitHub Copilot の Enter 送信を無効化 (⌥ ⏎ に変更)
+  {
+    "key": "enter",
+    "command": "-workbench.action.chat.submit",
+    "when": "chatInputHasText && inChatInput && !chatSessionRequestInProgress && !withinEditSessionDiff",
+  },
+  {
+    "key": "alt+enter",
+    "command": "workbench.action.chat.submit",
+    "when": "chatInputHasText && inChatInput && !chatSessionRequestInProgress && !withinEditSessionDiff",
+  },
+
+  // パネル一覧: ^ ^
+  {
+    "key": "ctrl ctrl",
+    "command": "workbench.action.quickOpenView",
+  },
+
+  // ファイル検索: ⇧ ⇧
+  //   JetBrains の真似
+  {
+    "key": "shift shift",
+    "command": "search.action.openEditor",
+    "when": "!inSearchEditor",
+  },
+
+  // 最近開いた項目: ⌥ ⌥ または ⌥ ⌘ P
+  {
+    "key": "alt alt",
+    "command": "workbench.action.openRecent",
+    // "command": "workbench.panel.chat.view.copilot.focus",
+  },
+  {
+    "key": "alt+cmd+p",
+    "command": "workbench.action.openRecent",
+  },
+
+  // [ソース管理] 表示: ⌘ ⇧ G
+  {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active",
+  },
+
+  // [Containers] 表示: ⌘ ⇧ D
+  {
+    "key": "shift+cmd+d",
+    "command": "workbench.view.extension.containersView",
+  },
+
+  // Close Tab: ⌘ W
+  //   フォーカスがターミナルにあればターミナルを、それ以外であればエディターを閉じる
+  {
+    "key": "cmd+w",
+    "command": "-workbench.action.closeActiveEditor",
+  },
+  {
+    "key": "cmd+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus",
+  },
+  {
+    "key": "cmd+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!terminalFocus",
+  },
+
+  // EditorZoomIn:    ⌘ +
+  // EditorZoomOut:   ⌘ -
+  // EditorZoomReset: ⌘ 0
+  {
+    "key": "cmd+[Semicolon]",
+    "command": "editor.action.fontZoomIn",
+  },
+  {
+    "key": "cmd+[Minus]",
+    "command": "editor.action.fontZoomOut",
+  },
+  {
+    "key": "cmd+0",
+    "command": "editor.action.fontZoomReset",
+  },
+
+  // WindowZoomIn:    ⌘ ⇧ +
+  // WindowZoomOut:   ⌘ ⇧ -
+  // WindowZoomReset: ⌘ ⇧ 0
+  {
+    "key": "shift+cmd+[Semicolon]",
+    "command": "workbench.action.zoomIn",
+  },
+  {
+    "key": "shift+cmd+[Minus]",
+    "command": "workbench.action.zoomOut",
+  },
+  {
+    "key": "shift+cmd+0",
+    "command": "workbench.action.zoomReset",
+  },
+
+  // Diff:              ⌘ D
+  // DiffWithClipboard: ⌘ K, ⌘ D
+  {
+    "key": "cmd+d",
+    "command": "workbench.files.action.compareFileWith",
+  },
+  {
+    "key": "cmd+k cmd+d",
+    "command": "extension.partialDiff.diffSelectionWithClipboard",
+  },
+
+  // FindReference: ⇧ F12
+  // GotoReference: ⇧ ⌥ F12
+  {
+    "key": "shift+f12",
+    "command": "references-view.findReferences",
+    "when": "editorHasReferenceProvider",
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "-references-view.findReferences",
+    "when": "editorHasReferenceProvider",
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor",
+  },
+  {
+    "key": "shift+f12",
+    "command": "-editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor",
+  },
+
+  // KeyMacro Recording Start/Finish: ⌘ ⇧ M
+  // KeyMacro Playback:               ⌘ ⇧ L
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'",
+  },
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'",
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'",
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'",
+  },
+]

@@ -1,0 +1,13 @@
+[tools]
+# 言語
+node = "lts"  # Node.js は偶数バージョンが LTS になる
+python = "latest"
+go = "latest"
+
+# Terraform
+terraform = ["1.4.7", "latest"]
+tflint = "latest"
+trivy = "latest"
+
+# ツール
+k6 = ["0.59.0", "latest"]

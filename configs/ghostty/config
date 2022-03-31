@@ -1,0 +1,76 @@
+# ******************************************************************************
+# Ghostty 設定ファイル
+# ------------------------------------------------------------------------------
+# `~/Library/Application Support/com.mitchellh.ghostty/config` に保存
+# `⌘ ⇧ ,` で設定適用
+# > ghostty +show-config --default --docs でデフォルト設定一覧表示
+# > ghostty +list-themes でテーマ一覧表示
+# ******************************************************************************
+
+# ウィンドウ
+window-save-state = always
+background-opacity = 0.70
+background-blur-radius = 6
+
+# 入力
+font-family = "Cascadia Code"
+font-size = 14
+font-thicken
+mouse-hide-while-typing
+cursor-style = block
+shell-integration-features = no-cursor
+
+# クリップボード
+clipboard-read = allow
+clipboard-write = allow
+
+
+# ------------------------------------------------------------------------------
+# macOS 固有の設定
+# ------------------------------------------------------------------------------
+
+# Option キーを Alt キーとして扱う
+macos-option-as-alt = left
+
+# システムボタンとタイトルバーを非表示 (流石に窮屈に見えるので余白も作る)
+macos-window-buttons = hidden
+macos-titlebar-style = hidden
+window-padding-x = 10
+window-padding-y = 10
+
+# ------------------------------------------------------------------------------
+# Microsoft Edit 用キーバインド
+# ------------------------------------------------------------------------------
+
+# ⌘ ←: 行頭へ (Fn ←)
+keybind = super+left=text:\x1b[H
+# ⌘ →: 行末へ (Fn →)
+keybind = super+right=text:\x1b[F
+# ⌘ O: ファイルを開く
+keybind = super+o=text:\x0f
+# ⌘ S: 保存
+keybind = super+s=text:\x13
+# ⌘ Z: 元に戻す  
+keybind = super+z=text:\x1a
+# ⌘ ⇧ Z: やり直し (macOS 風)
+keybind = super+shift+z=text:\x19
+# ⌘ Y: やり直し (Windows 風)
+keybind = super+y=text:\x19
+# ⌘ X: 切り取り
+keybind = super+x=text:\x18
+# ⌘ C: コピー
+keybind = super+c=text:\x03
+# ⌘ A: すべて選択
+keybind = super+a=text:\x01
+# ⌘ P: ファイルへ移動
+keybind = super+p=text:\x10
+# ⌘ G: 行へ移動
+keybind = super+g=text:\x07
+# ⌘ F: 検索
+keybind = super+f=text:\x06
+# ⌘ ⌥ F: 置換 (macOS 風)
+keybind = super+alt+f=text:\x18
+# ⌘ R: 置換 (Windows 風)
+keybind = super+r=text:\x18
+# ⌘ H: 置換 (VSCode 風)
+keybind = super+h=text:\x18
