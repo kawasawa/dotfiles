@@ -1,0 +1,5 @@
+min-release-age=3    # 公開からの経過日数が指定日未満のパッケージを禁止
+allow-git=none       # 外部の Git リポジトリを参照するパッケージを禁止
+ignore-scripts=true  # preinstall / install / postinstall を禁止
+audit=true           # インストール時に脆弱性を検証
+# engine-strict=true   # パッケージ指定の Node.js バージョンと不一致時にエラー
