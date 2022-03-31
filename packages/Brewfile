@@ -1,0 +1,31 @@
+tap "anomalyco/tap"
+tap "microsoft/apm"
+brew "ansible"
+brew "cocoapods"
+brew "duti"
+brew "mas"
+brew "mise"
+brew "uv"
+brew "zplug"
+brew "anomalyco/tap/opencode"
+brew "microsoft/apm/apm"
+cask "claude"
+cask "claude-code"
+cask "docker-desktop"
+cask "font-moralerspace-hw-jpdoc"
+cask "google-chrome"
+cask "google-japanese-ime"
+cask "jetbrains-toolbox"
+cask "keka"
+cask "keyboardcleantool"
+cask "obsidian"
+cask "sourcetree"
+cask "tableplus"
+cask "visual-studio-code"
+cask "xcodes-app"
+mas "AdGuard Mini", id: 1440147259
+mas "Dark Reader for Safari", id: 1438243180
+mas "Keepa - Price Tracker", id: 1533805339
+mas "Klack", id: 6446206067
+mas "LINE", id: 539883307
+mas "Transporter", id: 1450874784

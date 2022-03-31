@@ -1,0 +1,10 @@
+{
+	"servers": {
+		"upstash/context7": {
+			"type": "http",
+			"url": "https://mcp.context7.com/mcp",
+			"gallery": "https://api.mcp.github.com/2025-09-15/v0/servers/dcec7705-b81b-4e0f-8615-8032604be7ad",
+			"version": "1.0.0"
+		}
+	}
+}

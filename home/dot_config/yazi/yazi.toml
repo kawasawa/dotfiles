@@ -1,0 +1,10 @@
+# yazi --debug で現在の設定確認
+
+[opener]
+edit = [
+  { run = 'edit %s', desc = "MSEdit", for = "unix", block = true },
+]
+
+[mgr]
+ratio = [0, 1, 2]
+show_hidden = true
