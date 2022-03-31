@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "deepseek/deepseek-v4-pro",
+  "small_model": "opencode/deepseek-v4-flash-free",
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  },
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.keystore": "deny",
+      ".ssh/*": "deny",
+      ".aws/*": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "sudo *": "deny",
+      "rm -rf *": "deny",
+      "git reset --hard *": "deny",
+      "gh repo delete *": "deny",
+      "gh auth token *": "deny",
+      "rm *": "ask",
+      "chmod *": "ask",
+      "curl *": "ask",
+      "wget *": "ask",
+      "git checkout *": "ask",
+      "git switch *": "ask",
+      "git pull *": "ask",
+      "git clean *": "ask",
+      "git reset *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask",
+      "git rebase *": "ask",
+      "gh pr create *": "ask",
+      "gh pr merge *": "ask"
+    }
+  }
+}

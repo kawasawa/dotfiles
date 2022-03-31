@@ -1,0 +1,215 @@
+# ------------------------------------------------------------------------------
+# dotfiles セットアップ
+# ------------------------------------------------------------------------------
+- name: Setup dotfiles
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/home"
+  tasks:
+    # Git
+    - name: Migrate Git config
+      copy:
+        src: "{{ source }}/.gitconfig"
+        dest: "{{ ansible_facts.env.HOME }}/.gitconfig"
+
+    # Zsh
+    - name: if zplug exists
+      stat:
+        path: "{{ ansible_facts.env.HOME }}/.zplug"
+      register: zplug_stat # 指定のパスの状態を取得
+    - name: Clone zplug repository
+      git:
+        repo: https://github.com/zplug/zplug
+        dest: "{{ ansible_facts.env.HOME }}/.zplug"
+        clone: yes
+      when: not zplug_stat.stat.exists # ディレクトリが存在しない場合のみ実行
+
+    # .rc
+    - name: Migrate .rc files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ ansible_facts.env.HOME }}/{{ item | basename }}"
+      with_fileglob:
+        - "{{ source }}/.*rc" # パターンマッチしたファイルをループ
+
+
+# ------------------------------------------------------------------------------
+# .config 配下の設定ファイル移行
+# ------------------------------------------------------------------------------
+- name: Setup Config
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/home/dot_config"
+    dest: "{{ ansible_facts.env.HOME }}/.config"
+    mise_source: "{{ repos }}/packages"
+    mise_dest: "{{ dest }}/mise"
+  tasks:
+    # 同名のサブディレクトリのみ複製
+    - name: Find .config subdirectories
+      find:
+        paths: "{{ source }}"
+        file_type: directory
+        recurse: false # 直下のサブフォルダだけを取得
+      register: subdirs
+    # サブディレクトリが各アプリの情報なので消さずに上書きする
+    - name: Migrate .config subdirectories
+      copy:
+        src: "{{ item.path }}/"
+        dest: "{{ dest }}/{{ item.path | basename }}"
+      loop: "{{ subdirs.files }}"
+
+    # mise
+    - name: Migrate mise config
+      copy:
+        src: "{{ mise_source }}/mise.toml"
+        dest: "{{ mise_dest }}/config.toml"
+    - name: Install mise packages
+      shell: |
+        mise trust
+        mise install
+      # shell は自由度が高い反面、環境依存の温床になるため推奨はしない
+
+
+# ------------------------------------------------------------------------------
+# Application Support 配下の設定ファイル移行
+# ------------------------------------------------------------------------------
+- name: Setup Application Support
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/home/Library"
+    dest: "{{ ansible_facts.env.HOME }}/Library/Application Support"
+  tasks:
+    # Ghostty
+    - name: Create Ghostty directory
+      file:
+        path: "{{ dest }}/com.mitchellh.ghostty"
+        state: directory
+        mode: '0755'
+    - name: Migrate Ghostty files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ dest }}/com.mitchellh.ghostty/{{ item | basename }}"
+      with_fileglob:
+        - "{{ source }}/ghostty/*" # 直下のファイルをループ
+
+
+# ------------------------------------------------------------------------------
+# Claude Code セットアップ
+# ------------------------------------------------------------------------------
+- name: Setup Claude Code
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/home/dot_claude"
+    dest: "{{ ansible_facts.env.HOME }}/.claude"
+  tasks:
+    # ファイルはそのまま複製
+    - name: Migrate .claude files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ dest }}/{{ item | basename }}"
+      with_fileglob:
+        - "{{ source }}/*" # 直下のファイルをループ
+
+    # 同名のサブディレクトリのみ複製
+    - name: Find .claude subdirectories
+      find:
+        paths: "{{ source }}"
+        file_type: directory
+        recurse: false # 直下のサブフォルダだけを取得
+      register: subdirs
+    - name: Remove old .claude subdirectories
+      file:
+        path: "{{ dest }}/{{ item.path | basename }}"
+        state: absent
+      loop: "{{ subdirs.files }}"
+      ignore_errors: true # 実行時のエラーを無視
+    - name: Migrate .claude subdirectories
+      copy:
+        src: "{{ item.path }}/"
+        dest: "{{ dest }}/{{ item.path | basename }}"
+      loop: "{{ subdirs.files }}"
+
+    # Claude Code 用のスクリプトには実行権限が必要
+    - name: Set Claude Code StatusLine executable
+      file:
+        path: "{{ dest }}/statusline.sh"
+        mode: '0755'
+
+
+# ------------------------------------------------------------------------------
+# VSCode セットアップ
+# ------------------------------------------------------------------------------
+- name: Setup VSCode
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/home/Library/vscode"
+    dest: "{{ ansible_facts.env.HOME }}/Library/Application Support/Code/User"
+  tasks:
+    # GitHub Copilot
+    - name: Create Copilot directory
+      file:
+        path: "{{ ansible_facts.env.HOME }}/.copilot"
+        state: directory
+        mode: '0755'
+    - name: Migrate Copilot config
+      copy:
+        src: "{{ repos }}/home/dot_copilot/"
+        dest: "{{ ansible_facts.env.HOME }}/.copilot"
+
+    # 拡張子を json に戻して複製
+    - name: Migrate VSCode config
+      copy:
+        src: "{{ item }}"
+        # jsonc 形式ファイルを json に変換してコピー
+        dest: "{{ dest }}/{{ item | basename | regex_replace('\\.jsonc$', '.json') }}"
+      with_fileglob:
+        - "{{ source }}/*.jsonc"
+
+    # 同名のサブディレクトリのみ複製
+    - name: Find VSCode subdirectories
+      find:
+        paths: "{{ source }}"
+        file_type: directory
+        recurse: false # 直下のサブフォルダだけを取得
+      register: subdirs
+    - name: Remove old VSCode subdirectories
+      file:
+        path: "{{ dest }}/{{ item.path | basename }}"
+        state: absent
+      loop: "{{ subdirs.files }}"
+      ignore_errors: true # 実行時のエラーを無視
+    - name: Migrate VSCode subdirectories
+      copy:
+        src: "{{ item.path }}/"
+        dest: "{{ dest }}/{{ item.path | basename }}"
+      loop: "{{ subdirs.files }}"
+
+    # 次の処理が重いので一旦間を入れる
+    # (スキップしたければこのタイミングで)
+    - name: beep
+      command: afplay /System/Library/Sounds/Ping.aiff
+      ignore_errors: true # 実行時のエラーを無視
+    - name: pause
+      pause:
+        seconds: 10 # 指定時間の待機だけでなく、次の Task を即時実行 or この Play を中断 も可能
+
+    - name: Install VSCode extensions
+      shell: |
+        code --install-extension "{{ item }}"
+        sleep 0.5 # 拡張機能のインストールを連続で実施するとロックが取れずにコケるので間隔を空ける
+      loop: "{{ lookup('file', ansible_facts.env.HOME ~ '/repos/dotfiles/packages/vscode').splitlines() }}"
+      register: extension_install_result
+      until: extension_install_result.rc == 0
+      retries: 2 # 各ループでエラーが起きた場合に再施行
+      delay: 2 # リトライ時は念の為間を空ける
+      ignore_errors: true # 最終的に失敗した場合も無視

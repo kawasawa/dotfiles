@@ -1,0 +1,7 @@
+{
+  "model": "gpt-5.4",
+  "effortLevel": "high",
+  "keepAlive": "on",
+  "banner": "always",
+  "companyAnnouncements": ["HOW TO👉 https://docs.github.com/ja/copilot/how-tos/copilot-cli/use-copilot-cli/overview"]
+}

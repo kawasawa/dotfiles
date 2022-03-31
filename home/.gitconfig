@@ -1,0 +1,50 @@
+# ******************************************************************************
+# Git グローバル設定ファイル
+# ******************************************************************************
+
+# ------------------------------------------------------------------------------
+# 基本設定
+# ------------------------------------------------------------------------------
+
+[user]
+	name  = Kazuki Awasawa
+	email = 16559662+kawasawa@users.noreply.github.com
+
+[core]
+	ignorecase = false  # 大文字小文字を区別
+	quotepath  = false  # 日本語ファイル名の文字化けを防止
+	safecrlf   = true   # 改行コードの混在を許容
+	autocrlf   = false  # 改行コードの変換を無効
+
+[color]
+    ui = auto  # カラー表示を有効化
+
+[alias]
+	f = fetch --prune                # フェッチ, prune: リモートで削除されたブランチをローカルに反映 (`fetch.prune = true` でも設定可能だが念の為)
+	b = branch -av                   # ブランチ, a: リモートブランチを表示, v: 最終コミットのIDとメッセージを表示
+	s = status -sb                   # ステータス, s: 1ファイル1行表示, b: ブランチ情報を表示
+	l = log --graph --all --oneline  # ログ, graph: グラフ表示, all: 全ブランチ, oneline: 1コミット1行表示
+
+	# エイリアスを Zsh 標準の `alias` コマンド風に表示
+	alias = "!git config -l | grep ^alias\\. | grep -v ^alias\\.alias= | sed -e 's/^alias\\.//' -e \"s/=/='/\" -e \"s/$/'/\" | sort"
+
+	# 以下は実行用ではなくチートシートの意味合いで登録
+	amend-commit = commit --amend --no-edit  # コミットを上書き, amend: 直前のコミットを修正, no-edit: コミットメッセージを維持
+	hard-reset = "!git reset --hard origin/$(git branch --show-current)"  # 現在の変更とプッシュ前のコミットをすべて取り消す (リモートの同名ブランチと同じ状態になるよう強制リセット)
+	rebase-start = "!f() { git rebase -i HEAD~$1; }; f"  # リベースを開始, 引数: 遡るコミット数
+	rebase-keep-dates = "!f() { git rebase HEAD~$1 --committer-date-is-author-date; }; f"  # コミット日時の統一 (リベースによって更新されたコミット日時を作成日時に揃える), 引数: 日時を修正するコミット数
+
+[http]
+	postBuffer = 157286400  # push 可能なデータサイズを増加 (=1MB)
+
+
+# ------------------------------------------------------------------------------
+# Sourcetree
+# ------------------------------------------------------------------------------
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
