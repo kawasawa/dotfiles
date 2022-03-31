@@ -1,0 +1,24 @@
+[tools]
+# 言語
+node = "lts"  # Node.js は偶数バージョンが LTS になる
+python = "latest"
+go = "latest"
+
+# Terraform
+terraform = ["1.4.7", "latest"]
+tflint = "latest"
+trivy = "latest"
+
+# IaaS
+awscli = { version = "latest", symlink_bins = "true" }
+azure-cli = { version = "latest", uvx_args = "--prerelease=allow" }
+gcloud = "latest"
+supabase = "latest"
+
+# ツール
+k6 = ["0.59.0", "latest"]
+
+[settings]
+
+[settings.pipx]
+uvx = true  # Homebrew で uv が導入済み

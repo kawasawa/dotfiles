@@ -1,0 +1,110 @@
+# ------------------------------------------------------------------------------
+# OS 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure System
+  hosts: localhost
+  connection: local
+  tasks:
+    # キープレス時の特殊文字（アクセント記号付き文字）選択パネル表示を無効化
+    - name: Enable key repeat
+      osx_defaults:
+        domain: NSGlobalDomain
+        key: ApplePressAndHoldEnabled
+        type: bool
+        value: false
+
+    # 隠しファイルの可視化
+    - name: Show hidden files in Finder
+      osx_defaults:
+        domain: com.apple.Finder
+        key: AppleShowAllFiles
+        type: bool
+        value: true
+      notify: Restart Finder # 実行結果が changed の場合にハンドラを呼び出す
+
+    # スクリーンショットの影を無効化
+    - name: Disable screenshot shadow
+      osx_defaults:
+        domain: com.apple.screencapture
+        key: disable-shadow
+        type: bool
+        value: true
+      notify: Restart SystemUIServer
+
+  handlers: # タスクから呼び出されるハンドラを定義できる
+    - name: Restart Finder
+      command: killall Finder
+      ignore_errors: true
+
+    - name: Restart SystemUIServer
+      command: killall SystemUIServer
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# Dock 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure Dock
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/native/macos"
+  tasks:
+    - name: Clear existing Dock apps
+      command: defaults delete com.apple.dock persistent-apps
+      ignore_errors: true
+
+    - name: Clear existing Dock others
+      command: defaults delete com.apple.dock persistent-others
+      ignore_errors: true
+
+    - name: Read Dock apps list
+      slurp:
+        src: "{{ source }}/system/dockapps"
+      register: dockapps_content
+
+    - name: Add apps to Dock
+      command: >
+        defaults write com.apple.dock persistent-apps -array-add
+        '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+      # '#' で始まる行と空行は無視する
+      loop: "{{ dockapps_content.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | list }}"
+      notify: Restart Dock
+
+  handlers:
+    - name: Restart Dock
+      command: killall Dock
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# 拡張子関連付け Play
+# ------------------------------------------------------------------------------
+- name: Configure Editor Associations
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/native/macos"
+    # バンドル ID は下記で確認
+    # osascript -e 'id of app "/System/Applications/TextEdit.app"'
+    kicked_app_bundle_id: com.apple.TextEdit
+  tasks:
+    # 関連付ける拡張子の一覧をリスト化
+    - name: Read associations settings
+      slurp:
+        src: "{{ source }}/system/associations"
+      register: extensions
+    - name: Extract extensions list
+      set_fact:
+        assoc_exts: "{{ extensions.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | map('regex_replace','^\\.?','') | list }}"
+      when: extensions is defined
+
+    # 指定された拡張子の既定アプリに設定
+    #   Finder でファイルをダブルクリックしたときに起動するようになる
+    - name: Check if duti is installed
+      command: which duti
+      register: duti_check
+      ignore_errors: true
+    - name: Set file associations
+      command: duti -s "{{ kicked_app_bundle_id }}" {{ item }} all
+      loop: "{{ extensions.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | list }}"
+      when: duti_check.rc == 0 or (brew_install is defined and brew_install.rc == 0)
+
