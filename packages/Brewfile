@@ -1,0 +1,39 @@
+tap "microsoft/apm"
+brew "ansible"
+brew "chezmoi"
+brew "cocoapods"
+brew "duti"
+brew "ffmpeg"
+brew "fzf"
+brew "mas"
+brew "mise"
+brew "ollama"
+brew "yt-dlp"
+brew "zplug"
+brew "microsoft/apm/apm", trusted: true
+cask "claude"
+cask "claude-code"
+cask "cyberduck"
+cask "docker-desktop"
+cask "font-moralerspace-hw-jpdoc"
+cask "google-chrome"
+cask "jetbrains-toolbox"
+cask "keka"
+cask "keyboardcleantool"
+cask "obsidian"
+cask "sourcetree"
+cask "tableplus"
+cask "visual-studio-code"
+cask "windows-app"
+cask "xcodes-app"
+mas "AdGuard Mini", id: 1440147259
+mas "Dark Reader for Safari", id: 1438243180
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keepa - Price Tracker", id: 1533805339
+mas "Keynote", id: 361285480
+mas "Klack", id: 6446206067
+mas "LINE", id: 539883307
+mas "Numbers", id: 361304891
+mas "Pages", id: 361309726
+mas "Transporter", id: 1450874784

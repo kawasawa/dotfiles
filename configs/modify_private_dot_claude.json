@@ -1,0 +1,30 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /*
+  Global config (~/.claude.json) は Claude Code が直接管理する状態ファイルのため、
+  全体は保管せず指定のキーだけ値を上書きする。
+*/ -}}
+
+{{- /*
+  ベースとなる既存設定を取得。
+  併せて、適用前の変更確認用に退避しておく。
+*/ -}}
+{{- $cfg := dict -}}
+{{- if .chezmoi.stdin -}}{{- $cfg = fromJson .chezmoi.stdin -}}{{- end -}}
+{{- $before := toJson $cfg -}}
+
+{{- /* IDE 内蔵ターミナルでの起動時に拡張機能の自動インストールを無効化 */ -}}
+{{- $cfg = $cfg | setValueAtPath "autoInstallIdeExtension" false -}}
+{{- /* 外部エディタを開く際に Claude の直前の応答をコメントとして表示 */ -}}
+{{- $cfg = $cfg | setValueAtPath "externalEditorContext" true -}}
+{{- /* 空のプロンプトでの ← による agent view への移動を無効化 */ -}}
+{{- $cfg = $cfg | setValueAtPath "leftArrowOpensAgents" false -}}
+
+{{- /*
+  Claude Code は独自の書式で書き込むため、toPrettyJson で整列させた結果と必ず差分が生じる。
+  そのため、既存設定から変更がある場合のみ適用させる。
+*/ -}}
+{{- if eq (toJson $cfg) $before -}}
+{{- .chezmoi.stdin -}}
+{{- else -}}
+{{- $cfg | toPrettyJson -}}
+{{- end -}}
