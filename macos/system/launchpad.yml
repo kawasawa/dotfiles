@@ -1,0 +1,151 @@
+apps:
+  pages:
+    - number: 1
+      items:
+        - App Store
+        - Safari
+        - メール
+        - 連絡先
+        - カレンダー
+        - リマインダー
+        - メモ
+        - FaceTime
+        - メッセージ
+        - マップ
+        - 探す
+        - Photo Booth
+        - 写真
+        - ミュージック
+        - ポッドキャスト
+        - TV
+        - ボイスメモ
+        - 天気
+        - 株価
+        - ブック
+        - 時計
+        - 計算機
+        - フリーボード
+        - ホーム
+        - Siri
+        - iPhoneミラーリング
+        - パスワード
+        - folder: その他
+          pages:
+            - number: 1
+              items:
+                - ショートカット
+                - QuickTime Player
+                - 辞書
+                - テキストエディット
+                - Font Book
+                - 画面共有
+                - Mission Control
+                - Time Machine
+                - プレビュー
+                - スクリーンショット
+                - イメージキャプチャ
+                - Digital Color Meter
+                - ColorSyncユーティリティ
+                - スティッキーズ
+                - Grapher
+                - VoiceOverユーティリティ
+                - プリントセンター
+                - Automator
+                - スクリプトエディタ
+                - Audio MIDI設定
+                - Bluetoothファイル交換
+                - ディスクユーティリティ
+                - システム情報
+                - コンソール
+                - ターミナル
+                - AirMacユーティリティ
+                - 移行アシスタント
+                - ヒント
+        - folder: ゲーム
+          pages:
+            - number: 1
+              items:
+                - チェス
+    - number: 2
+      items:
+        - システム設定
+        - アクティビティモニタ
+        - AppCleaner
+        - KeyboardCleanTool
+        - Bitwarden
+        - Notion
+        - ChatGPT
+        - Google Chrome
+        - Visual Studio Code
+        - TablePlus
+        - Cyberduck
+        - Postman
+        - Stoplight Studio
+        - Docker
+        - Sourcetree
+        - Wireshark
+        - Xcodes
+        - JetBrains Toolbox
+        - Keka
+        - iTerm
+        - PowerShell
+        - CotEditor
+        - Microsoft Word
+        - Microsoft Excel
+        - Microsoft PowerPoint
+        - Slack
+        - zoom.us
+        - LINE
+        - folder: Background
+          pages:
+            - number: 1
+              items:
+                - AdGuard
+                - DeepL
+                - MacUpdater
+                - Google Drive
+                - DictionaryTool
+                - ConfigDialog
+                - Maccy
+                - Rectangle
+                - Scroll Reverser
+        - folder: Microsoft Office
+          pages:
+            - number: 1
+              items:
+                - Microsoft Outlook
+                - Microsoft Teams classic
+                - Microsoft OneNote
+                - OneDrive
+                - Microsoft Defender
+        - folder: Chrome Apps
+          pages:
+            - number: 1
+              items:
+                - Google Docs
+                - Google Sheets
+                - Google Slides
+widgets:
+  pages: []
+dock_items:
+  apps:
+    - /Applications/Notion.app
+    - /Applications/ChatGPT.app
+    - /Applications/Google Chrome.app
+    - /Applications/Visual Studio Code.app
+    - /Applications/TablePlus.app
+    - /Applications/Cyberduck.app
+    - /Applications/Postman.app
+    - /Applications/Stoplight Studio.app
+    - /Applications/Docker.app
+    - /Applications/Sourcetree.app
+    - /Applications/Wireshark.app
+  settings:
+    autohide: true
+    largesize: null
+    magnification: false
+    minimize-to-application: true
+    mru-spaces: false
+    show-recents: false
+    tilesize: 50
+desktop: {}
