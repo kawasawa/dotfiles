@@ -1,0 +1,19 @@
+// ******************************************************************************
+// プロジェクト用 VSCode 設定
+// ******************************************************************************
+
+{
+  // フォーマッターの設定
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  // フォーマットルールを指定
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": { "files.trimTrailingWhitespace": false },
+
+  // フォーマットタイミングを指定
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": "explicit" }
+}

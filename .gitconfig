@@ -1,0 +1,42 @@
+# ------------------------------------------------------------------------------
+# Git の基本設定
+# ------------------------------------------------------------------------------
+
+[user]
+	name  = Kazuki Awasawa
+	email = 16559662+kawasawa@users.noreply.github.com
+[core]
+	ignorecase = false  # 大文字小文字を区別
+	quotepath  = false  # 日本語ファイル名の文字化けを防止
+	safecrlf   = true   # 改行コードの混在を許容
+	autocrlf   = false  # 改行コードの変換を無効
+[http]
+	postBuffer = 157286400  # push 可能なデータサイズ
+
+# ------------------------------------------------------------------------------
+# delta 用の設定
+# ------------------------------------------------------------------------------
+
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	light = false
+
+# ------------------------------------------------------------------------------
+# Sourcetree 用の設定
+# ------------------------------------------------------------------------------
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
