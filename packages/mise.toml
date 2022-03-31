@@ -1,0 +1,7 @@
+[tools]
+go = "latest"
+k6 = "latest"
+node = "latest"
+python = "latest"
+terraform = ["1.4.7", "latest"]
+trivy = "latest"
