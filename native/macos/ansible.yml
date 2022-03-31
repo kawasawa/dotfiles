@@ -1,0 +1,104 @@
+# ------------------------------------------------------------------------------
+# OS 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure System
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Enable key repeat
+      osx_defaults:
+        domain: NSGlobalDomain
+        key: ApplePressAndHoldEnabled
+        type: bool
+        value: false
+
+    - name: Show hidden files in Finder
+      osx_defaults:
+        domain: com.apple.Finder
+        key: AppleShowAllFiles
+        type: bool
+        value: true
+      notify: Restart Finder # 実行結果が changed の場合にハンドラを呼び出す
+
+    - name: Disable screenshot shadow
+      osx_defaults:
+        domain: com.apple.screencapture
+        key: disable-shadow
+        type: bool
+        value: true
+      notify: Restart SystemUIServer
+
+  handlers: # タスクから呼び出されるハンドラを定義できる
+    - name: Restart Finder
+      command: killall Finder
+      ignore_errors: true
+
+    - name: Restart SystemUIServer
+      command: killall SystemUIServer
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# Dock 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure Dock
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_env.HOME }}/repos/dotfiles/native/macos"
+  tasks:
+    - name: Clear existing Dock apps
+      command: defaults delete com.apple.dock persistent-apps
+      ignore_errors: true
+
+    - name: Clear existing Dock others
+      command: defaults delete com.apple.dock persistent-others
+      ignore_errors: true
+
+    - name: Read Dock apps list
+      slurp:
+        src: "{{ source }}/system/dockapps"
+      register: dockapps_content
+
+    - name: Add apps to Dock
+      command: >
+        defaults write com.apple.dock persistent-apps -array-add
+        '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+      loop: "{{ dockapps_content.content | b64decode | split('\n') | reject('equalto', '') | list }}"
+      notify: Restart Dock
+
+    - name: Set Dock tile size
+      osx_defaults:
+        domain: com.apple.dock
+        key: tilesize
+        type: int
+        value: 50
+
+  handlers:
+    - name: Restart Dock
+      command: killall Dock
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# 拡張子関連付け Play
+# ------------------------------------------------------------------------------
+- name: Configure File Associations
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_env.HOME }}/repos/dotfiles/native/macos"
+  tasks:
+    - name: Check if duti is installed
+      command: which duti
+      register: duti_check
+      ignore_errors: true
+
+    - name: Read file associations list
+      slurp:
+        src: "{{ source }}/system/associations"
+      register: associations_content
+      when: duti_check.rc == 0
+
+    - name: Set file associations with MacVim
+      command: duti -s org.vim.MacVim {{ item }} all
+      loop: "{{ associations_content.content | b64decode | split('\n') | reject('equalto', '') | list }}"
+      when: duti_check.rc == 0
