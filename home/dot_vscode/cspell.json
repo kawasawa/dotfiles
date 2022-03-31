@@ -1,0 +1,146 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    ".git/",
+    "build/",
+    "coverage/",
+    "dist/",
+    "node_modules/",
+    "*.lock",
+    "*.lock.*",
+    "*.test.*"
+  ],
+  "words": [
+    // mine
+    "kawasawa",
+    "Kazuki",
+    "Awasawa",
+    "Yamanashi",
+
+    // Typescript
+    "jQuery",
+    "FormData",
+    "Pressable",
+    "EBADCSRFTOKEN",
+    "yarnrc",
+    "pino",
+    "boomify",
+    "reactnative",
+
+    // Swift
+    "xcworkspace",
+    "cocoapods",
+    "podspec",
+
+    // PHP
+    "XAMPP",
+    "Laravel",
+
+    // Python
+    "isort",
+    "splitlines",
+
+    // C#
+    "MahApps",
+
+    // C++
+    "gtkmm",
+
+    // Shell
+    "opendiff",
+    "afplay",
+    "urandom",
+    "urlencode",
+    "chdir",
+    "newkey",
+    "keyout",
+    "addext",
+    "doas",
+    "ncat",
+    "netcat",
+    "exfil",
+    "osascript",
+
+    // Swagger
+    "codegen",
+
+    // Docker
+    "Distroless",
+    "curlimages",
+    "buildx",
+    "seccomp",
+
+    // Terraform
+    "tfstate",
+    "tfvars",
+    "terraformrc",
+    "tflint",
+    "appautoscaling",
+    "hostnames",
+    "cooldown",
+
+    // Ansible
+    "lineinfile",
+    "with_fileglob",
+
+    // AWS
+    "awscli",
+    "IMDS",
+    "DNSSEC",
+    "awsdns",
+    "rdsadmin",
+
+    // MySQL
+    "dbml",
+    "innodb",
+    "initdb",
+    "mysqld",
+    "slowquery",
+    "ibfk",
+
+    // Prisma
+    "autoincrement",
+    "cuid",
+
+    // Postman
+    "prerequest",
+    "htmlextra",
+
+    // Git
+    "ignorecase",
+    "quotepath",
+    "safecrlf",
+    "difftool",
+    "mergetool",
+    "oneline",
+
+    // misc
+    "Supabase",
+    "LocalStack",
+    "Metabase",
+    "RedMine",
+    "Codecov",
+    "Snyk",
+    "SonarQube",
+    "qube",
+    "Dsonar",
+    "tbls",
+    "TablePlus",
+    "Ghostty",
+    "Marp",
+    "StackOverflow",
+    "Qiita",
+    "OpenCode",
+    "xhigh",
+
+    // other
+    "ignorefile",
+    "exitcode",
+    "apikey",
+    "keymap",
+    "keybind",
+    "webp",
+    "rgba"
+  ]
+}

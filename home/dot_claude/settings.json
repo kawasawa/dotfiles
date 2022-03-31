@@ -1,0 +1,170 @@
+{
+  "cleanupPeriodDays": 60,
+  "env": {
+    "CLAUDE_CODE_EFFORT_LEVEL": "xhigh",
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "true",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "true",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "false",
+    "DISABLE_ERROR_REPORTING": "true",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "true",
+    "DISABLE_TELEMETRY": "true"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(mkdir *)",
+      "Bash(wc *)",
+      "Bash(jq *)",
+      "Bash(sed -n *)",
+      "Bash(git branch --show-current)",
+      "Bash(git branch --list)",
+      "Bash(git ls-remote *)",
+      "Bash(git log *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git --no-pager diff *)",
+      "Bash(git show *)",
+      "Bash(git fetch *)",
+      "Bash(git check-ignore *)",
+      "Bash(gh repo view *)",
+      "Bash(gh issue list *)",
+      "Bash(gh issue view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+      "Bash(npm ls *)",
+      "Bash(npm list *)",
+      "Bash(npm view *)",
+      "Bash(npm test *)",
+      "Bash(npm run format *)",
+      "Bash(npm run lint *)",
+      "Bash(npm run typecheck *)",
+      "Bash(npm run test *)",
+      "Bash(npm run build *)",
+      "Bash(npx prettier *)",
+      "Bash(npx eslint *)",
+      "Bash(npx tsc *)",
+      "Bash(npx jest *)",
+      "Bash(npx vitest *)",
+      "Bash(xcodebuild *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebFetch(domain:cdn.cocoapods.org)",
+      "WebFetch(domain:developer.apple.com)",
+      "WebFetch(domain:support.apple.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:www.jetbrains.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "WebFetch(domain:reactnative.dev)",
+      "WebFetch(domain:api.expo.dev)",
+      "WebFetch(domain:docs.expo.dev)",
+      "WebFetch(domain:cdp.expo.dev)",
+      "WebFetch(domain:stackoverflow.com)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs"
+    ],
+    "deny": [
+      "Bash(sudo *)",
+      "Bash(rm -rf *)",
+      "Bash(git reset --hard *)",
+      "Bash(gh repo delete *)",
+      "Bash(gh auth token *)",
+      "Read(**/.ssh/**)",
+      "Read(**/.aws/**)",
+      "Read(**/.azure/**)",
+      "Read(**/.config/gcloud/**)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.keystore)"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(chmod *)",
+      "Bash(cat *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(git checkout *)",
+      "Bash(git switch *)",
+      "Bash(git pull *)",
+      "Bash(git clean *)",
+      "Bash(git reset *)",
+      "Bash(git add *)",
+      "Bash(git mv *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git rebase *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr merge *)"
+    ],
+    "defaultMode": "acceptEdits",
+    "disableBypassPermissionsMode": "disable"
+  },
+  "model": "claude-opus-4-7",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/validate.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Ping.aiff"
+          },
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"needs your attention\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true
+  },
+  "language": "日本語",
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": ["github.com", "*.npmjs.org", "cdn.cocoapods.org"],
+      "allowLocalBinding": true
+    },
+    "filesystem": {
+      "denyRead": ["~/.ssh", "~/.aws", "~/.azure", "~/.config/gcloud"]
+    },
+    "enableWeakerNetworkIsolation": true
+  },
+  "spinnerTipsEnabled": false,
+  "awaySummaryEnabled": false,
+  "companyAnnouncements": ["HOW TO👉 https://code.claude.com/docs/ja/overview"],
+  "verbose": true,
+  "showTurnDuration": true,
+  "teammateMode": "auto",
+  "remoteControlAtStartup": false
+}
