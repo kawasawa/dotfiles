@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# ******************************************************************************
+# pre-push フック
+# ******************************************************************************
+
+set -eu
+
+# GUI からの実行では zsh の PATH が引き継がれないため補完
+PATH="$PATH:/opt/homebrew/bin:${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims"
+
+# 未導入時は素通りさせずエラー終了
+if ! command -v betterleaks > /dev/null 2>&1; then
+    echo '[pre-push] betterleaks not found' >&2
+    exit 1
+fi
+
+# pre-push の read には、push する ref ごとに `<local ref> <local sha> <remote ref> <remote sha>` が渡される
+#   新しいブランチを作成すると <remote sha> = ALL 0
+#   ブランチやタグを削除すると <local sha> = ALL 0
+remote="$1"
+all_zero=$(git hash-object --stdin < /dev/null | tr '[0-9a-f]' '0')
+while read -r _ local_sha _ _; do
+    if [ "$local_sha" = "$all_zero" ]; then
+        continue
+    fi
+
+    # リモート未到達のコミットに対する機密情報の混入チェック
+    # (pre-commit を経由しない rebase や cherry-pick 等への備え)
+    betterleaks git --redact --verbose --no-banner --log-opts="$local_sha --not --remotes=$remote" < /dev/null
+done

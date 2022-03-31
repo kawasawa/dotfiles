@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# ******************************************************************************
+# pre-commit フック
+# ******************************************************************************
+
+set -eu
+
+# GUI からの実行では zsh の PATH が引き継がれないため補完
+PATH="$PATH:/opt/homebrew/bin:${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims"
+
+# 未導入時は素通りさせずエラー終了
+if ! command -v betterleaks > /dev/null 2>&1; then
+    echo '[pre-commit] betterleaks not found' >&2
+    exit 1
+fi
+
+# ステージされた変更に対する機密情報の混入チェック
+# (amend 時は直前のコミットからの差分)
+betterleaks git --pre-commit --staged --redact --verbose --no-banner
