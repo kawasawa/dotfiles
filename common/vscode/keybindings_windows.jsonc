@@ -1,0 +1,215 @@
+// ******************************************************************************
+// VSCode キーバインド設定ファイル (Windows用)
+// ------------------------------------------------------------------------------
+// 事前に下記を実施する。
+// ①設定 > キーボードの詳細設定 > 言語バーのオプション > キーの詳細設定 > キーシーケンスの変更
+// 　・キーボードレイアウトの切り替え 割り当てなし
+// ******************************************************************************
+
+[
+  // ------------------------------------------------------------------------------
+  // macOS / Windows の操作感を統一させる
+  // ------------------------------------------------------------------------------
+
+  // Project List: ctrl+alt+P
+  {
+    "key": "ctrl+alt+p",
+    "command": "projectManager.listProjects"
+  },
+
+  // ------------------------------------------------------------------------------
+  // 操作性を向上させる
+  // ------------------------------------------------------------------------------
+
+  // PageUp:   option+Up
+  // PageDown: option+Down
+  {
+    "key": "alt+up",
+    "command": "-editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+up",
+    "command": "cursorPageUp",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+down",
+    "command": "-editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+down",
+    "command": "cursorPageDown",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+
+  // EditorZoomUp:    ctrl+Plus
+  // EditorZoomOut:   ctrl+Minus
+  // EditorZoomReset: ctrl+0
+  {
+    "key": "ctrl+oem_plus",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "ctrl+oem_minus",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "editor.action.fontZoomReset"
+  },
+
+  // WindowZoomIn:    ctrl+shift+Plus
+  // WindowZoomOut:   ctrl+shift+Minus
+  // WindowZoomReset: ctrl+shift+0
+  {
+    "key": "ctrl+shift+[Semicolon]",
+    "command": "workbench.action.zoomIn"
+  },
+  {
+    "key": "ctrl+shift+[Minus]",
+    "command": "workbench.action.zoomOut"
+  },
+  {
+    "key": "ctrl+shift+0",
+    "command": "workbench.action.zoomReset"
+  },
+
+  // Diff:              ctrl+shift+D
+  // DiffWithClipboard: ctrl+k ctrl+D
+  {
+    "key": "ctrl+shift+d",
+    "command": "workbench.files.action.compareFileWith"
+  },
+  {
+    "key": "ctrl+k ctrl+d",
+    "command": "extension.partialDiff.diffSelectionWithClipboard"
+  },
+
+  // Bookmark: ctrl+shift+B
+  {
+    "key": "ctrl+shift+b",
+    "command": "bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+k",
+    "command": "-bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+
+  // FindReference: shift+F12
+  // GotoReference: shift+alt+F12
+  {
+    "key": "shift+f12",
+    "command": "references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "-references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+f12",
+    "command": "-editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+
+  // KeyMacro Recording Start/Finish: ctrl+shift+M
+  // KeyMacro Playback:               ctrl+shift+L
+  {
+    "key": "ctrl+shift+m",
+    "command": "kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+
+  // ------------------------------------------------------------------------------
+  // アクティビティバーの表示切替
+  // ------------------------------------------------------------------------------
+
+  // Focus X: ctrl+alt+1~0
+  {
+    "key": "ctrl+alt+1",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "ctrl+alt+2",
+    "command": "workbench.action.findInFiles"
+  },
+  {
+    "key": "ctrl+alt+3",
+    "command": "workbench.scm.focus"
+  },
+  {
+    "key": "ctrl+alt+4",
+    "command": "workbench.view.debug",
+    "when": "viewContainer.workbench.view.debug.enabled"
+  },
+  {
+    "key": "ctrl+alt+5",
+    "command": "workbench.view.testing.focus"
+  },
+  {
+    "key": "ctrl+alt+6",
+    "command": "remoteTargets.focus"
+  },
+  {
+    "key": "ctrl+alt+7",
+    "command": "workbench.view.extension.containersView"
+  },
+  {
+    "key": "ctrl+alt+8",
+    "command": "workbench.view.extension.sqltoolsActivityBarContainer"
+  },
+  {
+    "key": "ctrl+alt+9",
+    "command": "workbench.view.extension.github-pull-requests"
+  },
+  {
+    "key": "ctrl+alt+0",
+    "command": "workbench.view.extension.aws-explorer"
+  }
+]
