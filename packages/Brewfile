@@ -1,0 +1,60 @@
+tap "anomalyco/tap"
+tap "microsoft/apm"
+# Automate deployment, configuration, and upgrading
+brew "ansible"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
+# Select default apps for documents and URL schemes on macOS
+brew "duti"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Mac App Store command-line interface
+brew "mas"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Next-generation plugin manager for zsh
+brew "zplug"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# Agent Package Manager (APM): The NPM for AI-Native Development
+brew "microsoft/apm/apm", trusted: true
+# Anthropic's official Claude AI desktop app
+cask "claude"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+cask "font-moralerspace-hw-jpdoc"
+# Web browser
+cask "google-chrome"
+# Japanese input software
+cask "google-japanese-ime"
+# JetBrains tools manager
+cask "jetbrains-toolbox"
+# File archiver
+cask "keka"
+# Blocks all Keyboard and TouchBar input
+cask "keyboardcleantool"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Graphical client for Git version control
+cask "sourcetree"
+# Native GUI tool for relational databases
+cask "tableplus"
+# Open-source code editor
+cask "visual-studio-code"
+# Install and switch between multiple versions of Xcode
+cask "xcodes-app"
+mas "AdGuard Mini", id: 1440147259
+mas "Dark Reader for Safari", id: 1438243180
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keepa - Price Tracker", id: 1533805339
+mas "Keynote", id: 361285480
+mas "Klack", id: 6446206067
+mas "LINE", id: 539883307
+mas "Numbers", id: 361304891
+mas "Pages", id: 361309726
+mas "Transporter", id: 1450874784

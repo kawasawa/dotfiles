@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "./ysk/shingen-hf",
+    },
+    {
+      "path": "./ysk/vine-trak",
+    },
+  ],
+  "settings": {
+    "terminal.integrated.env.osx": {
+      "CLAUDE_CONFIG_DIR": "${env:HOME}/.claude-ysk",
+    },
+    "workbench.colorCustomizations": {
+      "statusBar.background": "#076558",
+    },
+  },
+}
