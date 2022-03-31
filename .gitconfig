@@ -1,0 +1,33 @@
+[user]
+	name  = Kazuki Awasawa
+	email = 16559662+kawasawa@users.noreply.github.com
+[http]
+	postBuffer = 157286400  # push 可能なデータサイズ
+[core]
+	ignorecase = false  # 大文字小文字を区別
+	quotepath  = false  # 日本語ファイル名の文字化けを防止
+	safecrlf   = true   # 改行コードの混在を許容
+	autocrlf   = false  # 改行コードの変換を無効
+[alias]
+	# ブランチを一覧表示及びチェックアウト
+	b = !"git branch --list | $INTERACTIVE_FILTER | sed 's/^[ \t*]*//' | cut -d ' ' -f 1 | xargs -p git checkout"
+	# コミットを一覧表示及び詳細出力
+	l = !"git log --oneline --graph | $INTERACTIVE_FILTER | sed 's/.*\\([0-9a-f]\\{7\\}\\) .*/\\1/' | xargs -I_COMMITID git show _COMMITID --no-patch"
+	# 変更状態を表示
+	d = !"git diff --stat | $INTERACTIVE_FILTER | sed -n 's/^[[:space:]]*\\(.*\\)[[:space:]]*|.*$/\\1/p' | xargs git diff"
+	# 作業状態を表示
+	s = status -s
+
+# delta 用の設定
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	light = false
