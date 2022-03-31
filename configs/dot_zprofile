@@ -1,0 +1,37 @@
+# ******************************************************************************
+# zsh (ログインシェル) 設定ファイル
+# ------------------------------------------------------------------------------
+# 依存関係
+#   - Homebrew: パッケージ管理
+# ******************************************************************************
+
+# ロケール
+export LANG=ja_JP.utf-8
+export LESSCHARSET=utf-8
+
+# トラッキング拒否
+export DO_NOT_TRACK=1
+export HOMEBREW_NO_ANALYTICS=1
+export GH_TELEMETRY=false
+export SAM_CLI_TELEMETRY=0
+export AZURE_CORE_COLLECT_TELEMETRY=0
+
+# エディタ
+export EDITOR='vim'      # 編集用
+export VISUAL="$EDITOR"  # 表示用
+
+# Homebrew
+# この処理で HOMEBREW_PREFIX が export される
+if [[ -e /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -e /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+export HOMEBREW_FORBIDDEN_FORMULAE="python python3 pip node npm pnpm yarn"
+
+# Android: JetBrains Toolbox (Android Studio / Java), SDK / ADB
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+export JAVA_HOME="$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
