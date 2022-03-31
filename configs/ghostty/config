@@ -1,0 +1,103 @@
+# ******************************************************************************
+# Ghostty 設定ファイル
+# ------------------------------------------------------------------------------
+# `~/Library/Application Support/com.mitchellh.ghostty/config` に保存
+# `⌘ ⇧ ,` で設定適用
+# > ghostty +show-config --default --docs でデフォルト設定一覧表示
+# > ghostty +list-themes でテーマ一覧表示
+# ******************************************************************************
+
+# ウィンドウ
+window-save-state = always
+background-opacity = 0.75
+background-blur-radius = 3
+
+# 入力
+font-family = "Cascadia Code"
+font-size = 14
+font-thicken
+mouse-hide-while-typing
+cursor-style = block
+shell-integration-features = no-cursor
+
+# クリップボード
+clipboard-read = allow
+clipboard-write = allow
+
+# クイックターミナル
+# ⌘ ⇧ ⏎ にバインド
+keybind = global:cmd+shift+enter=toggle_quick_terminal
+quick-terminal-position = "bottom"
+quick-terminal-size = 25%, 50%
+quick-terminal-animation-duration = 0
+
+
+# ------------------------------------------------------------------------------
+# macOS 固有の設定
+# ------------------------------------------------------------------------------
+
+# Option キーを Opt キーとして扱う
+macos-option-as-alt = left
+
+# システムボタンとタイトルバーを非表示 (流石に窮屈に見えるので余白も作る)
+macos-window-buttons = hidden
+macos-titlebar-style = hidden
+window-padding-x = 10
+window-padding-y = 10
+
+
+# ------------------------------------------------------------------------------
+# Microsoft Edit 用キーバインド
+# ------------------------------------------------------------------------------
+
+# ⌘ ←: 行頭へ移動 (Fn ←)
+keybind = cmd+left=text:\x1b[H
+# ⌘ ⇧ ←: 行頭まで選択 (Fn ⇧ ←)
+keybind = cmd+shift+left=text:\x1b[1;2H
+# ⌘ →: 行末へ移動 (Fn →)
+keybind = cmd+right=text:\x1b[F
+# ⌘ ⇧ →: 行末まで選択 (Fn ⇧ →)
+keybind = cmd+shift+right=text:\x1b[1;2F
+# ⌘ ↑: 先頭へ移動 (Fn ↑)
+keybind = cmd+up=text:\x1b[5~
+# ⌘ ⇧ ↑: 先頭まで選択 (Fn ⇧ ↑)
+keybind = cmd+shift+up=text:\x1b[5;2~
+# ⌘ ↓: 末尾へ移動 (Fn ↓)
+keybind = cmd+down=text:\x1b[6~
+# ⌘ ⇧ ↓: 末尾まで選択 (Fn ⇧ ↓)
+keybind = cmd+shift+down=text:\x1b[6;2~
+
+# ⌘ N: 新規作成
+keybind = cmd+n=text:\x0e
+# ⌘ T: 新規作成
+keybind = cmd+t=text:\x0e
+# ⌘ O: ファイルを開く
+keybind = cmd+o=text:\x0f
+# ⌘ S: 保存
+keybind = cmd+s=text:\x13
+# ⌘ W: タブを閉じる
+keybind = cmd+w=text:\x17
+# ⌘ Z: 元に戻す  
+keybind = cmd+z=text:\x1a
+# ⌘ ⇧ Z: やり直し (macOS 風)
+keybind = cmd+shift+z=text:\x19
+# ⌘ Y: やり直し (Windows 風)
+keybind = cmd+y=text:\x19
+# ⌘ X: 切り取り
+keybind = cmd+x=text:\x18
+# ⌘ C: コピー
+keybind = cmd+c=text:\x03
+# ⌘ A: すべて選択
+keybind = cmd+a=text:\x01
+# ⌘ P: ファイルへ移動
+keybind = cmd+p=text:\x10
+# ⌘ G: 行へ移動
+keybind = cmd+g=text:\x07
+# ⌘ F: 検索
+keybind = cmd+f=text:\x06
+# ⌘ ⌥ F: 置換 (macOS 風)
+keybind = cmd+opt+f=text:\x18
+# ⌘ R: 置換 (Windows 風)
+keybind = cmd+r=text:\x18
+# ⌘ H: 置換 (VSCode 風)
+keybind = cmd+h=text:\x18

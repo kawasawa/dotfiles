@@ -1,0 +1,5 @@
+# yazi --debug で現在の設定確認
+
+[mgr]
+ratio = [0, 1, 2]
+show_hidden = true

@@ -1,0 +1,5 @@
+[mgr]  
+prepend_keymap = [
+  # Enter キーでディレクトリ内に遷移する (エディタで開かないようにする)
+  { on = "<Enter>", run = ["plugin smart-enter"] },
+]
