@@ -1,0 +1,241 @@
+// ******************************************************************************
+// VSCode キーバインド設定ファイル (macOS用)
+// ------------------------------------------------------------------------------
+// 事前に下記を実施する。
+// ①システム設定 > キーボード > キーボードショートカット... > キーボード
+// 　・次のウィンドウを操作対象にする [cmd+@] のチェックを外す
+// ******************************************************************************
+
+[
+  // ------------------------------------------------------------------------------
+  // macOS / Windows の操作感を統一させる
+  // ------------------------------------------------------------------------------
+
+  // Intellisense: command+Space
+  {
+    "key": "cmd+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+
+  // Terminal: command+@ OR control+@
+  {
+    "key": "cmd+[BracketLeft]",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+[BracketLeft]",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+
+  // Terminal: shift+Enter
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\\\r\n" },
+    "when": "terminalFocus"
+  },
+
+  // GotoLine: command+G
+  {
+    "key": "cmd+g",
+    "command": "workbench.action.gotoLine"
+  },
+
+  // Redo: command+Y
+  {
+    "key": "cmd+y",
+    "command": "redo"
+  },
+
+  // MovePrev: control+Left
+  // MoveNext: control+Right
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.navigateForward"
+  },
+
+  // [ソース管理] 表示: command+shift+G
+  {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+
+  // ------------------------------------------------------------------------------
+  // 操作性を向上させる
+  // ------------------------------------------------------------------------------
+
+  // PageUp:   option+Up
+  // PageDown: option+Down
+  {
+    "key": "alt+up",
+    "command": "-editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+up",
+    "command": "cursorPageUp",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+down",
+    "command": "-editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+down",
+    "command": "cursorPageDown",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+
+  // EditorZoomIn:    command+Plus
+  // EditorZoomOut:   command+Minus
+  // EditorZoomReset: command+0
+  {
+    "key": "cmd+[Semicolon]",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "cmd+[Minus]",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "cmd+0",
+    "command": "editor.action.fontZoomReset"
+  },
+
+  // WindowZoomIn:    command+shift+Plus
+  // WindowZoomOut:   command+shift+Minus
+  // WindowZoomReset: command+shift+0
+  {
+    "key": "shift+cmd+[Semicolon]",
+    "command": "workbench.action.zoomIn"
+  },
+  {
+    "key": "shift+cmd+[Minus]",
+    "command": "workbench.action.zoomOut"
+  },
+  {
+    "key": "shift+cmd+0",
+    "command": "workbench.action.zoomReset"
+  },
+
+  // SplitView: command+¥
+  {
+    "key": "cmd+[IntlYen]",
+    "command": "workbench.action.splitEditor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+[IntlYen]",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+  },
+
+  // Diff:              command+D
+  // DiffWithClipboard: command+shift+D
+  {
+    "key": "cmd+d",
+    "command": "workbench.files.action.compareFileWith"
+  },
+  {
+    "key": "shift+cmd+d",
+    "command": "extension.partialDiff.diffSelectionWithClipboard"
+  },
+
+  // FindReference: shift+F12
+  // GotoReference: shift+Option+F12
+  {
+    "key": "shift+f12",
+    "command": "references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "-references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+f12",
+    "command": "-editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+
+  // KeyMacro Recording Start/Finish: command+shift+M
+  // KeyMacro Playback:             : command+shift+L
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+
+  // ------------------------------------------------------------------------------
+  // macOS のみの追加設定
+  // ------------------------------------------------------------------------------
+
+  // VSCode 既定の `検索` と ファイルに移動` を `FindItFaster` に置き換える
+  // search within file: command+shift+F
+  // search file: command+P
+  {
+    "key": "shift+cmd+f",
+    "command": "find-it-faster.findWithinFiles",
+    "when": "isMacNative"
+  },
+  {
+    "key": "cmd+p",
+    "command": "find-it-faster.findFiles",
+    "when": "isMacNative"
+  }
+]

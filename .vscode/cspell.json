@@ -1,0 +1,37 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    ".git/",
+    ".github/",
+    ".vscode/"
+  ],
+  "words": [
+    "augroup",
+    "autocmd",
+    "bufnr",
+    "buftype",
+    "endfor",
+    "endfunction",
+    "filereadable",
+    "getbufvar",
+    "guibg",
+    "guifg",
+    "inoremap",
+    "keymap",
+    "killall",
+    "LBUFFER",
+    "netrw",
+    "nnoremap",
+    "packadd",
+    "RPROMPT",
+    "setlocal",
+    "tnoremap",
+    "vnoremap",
+    "winbufnr",
+    "wincmd",
+    "winget",
+    "winnr",
+    "zplug"
+  ]
+}
