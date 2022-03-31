@@ -1,0 +1,10 @@
+name: kawasawa
+version: 1.0.0
+description: APM project for kawasawa
+author: Kazuki Awasawa
+dependencies:
+  apm:
+    - kawasawa/apm/global
+  mcp: []
+includes: auto
+scripts: {}
