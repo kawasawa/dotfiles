@@ -1,0 +1,28 @@
+{
+  // ここで設定している以外のものは都度ユーザーに確認を求める
+  "permissions": {
+    // ユーザーに許可を求めず自動で実行するツール群
+    "allow": [
+      "Bash(rg:*)", // rgやgit grepは.gitignoreを考慮して検索してくれる
+      "Bash(git grep:*)",
+      "Bash(go test:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(cat:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Read(*)" // 全ファイル基本読み込み可
+    ],
+    // 絶対に実行させないツール群
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Read(.env*)", // .env系はセキュリティ情報が入ることが多いので読み込ませない
+      "Read(id_rsa)", // 秘密鍵系
+      "Read(id_ed25519)"
+    ]
+  }
+}
