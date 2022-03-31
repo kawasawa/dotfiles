@@ -1,0 +1,20 @@
+{
+  "banner": "always",
+  "last_logged_in_user": {
+    "host": "https://github.com",
+    "login": "kawasawa"
+  },
+  "logged_in_users": [
+    {
+      "host": "https://github.com",
+      "login": "kawasawa"
+    }
+  ],
+  "model": "claude-haiku-4.5",
+  "render_markdown": true,
+  "screen_reader": false,
+  "theme": "auto",
+  "trusted_folders": [
+    "/Users/kawasawa"
+  ]
+}
