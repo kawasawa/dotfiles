@@ -1,0 +1,10 @@
+# 注意
+#   本ファイルは端末に配置されない
+#   あくまで本リポジトリのための設定である
+
+**/Thumbs.db
+**/.DS_Store
+
+# なんか Global ignore が効かない時があるため念のため
+**/.claude/settings.local.json
+**/.claude/.cc-writes/

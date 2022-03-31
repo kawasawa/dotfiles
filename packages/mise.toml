@@ -1,0 +1,22 @@
+[tools]
+
+# Language / Framework
+node = ["lts", "26.12.1", "24.22.1", "22.23.4"]  # Node.js は偶数 ver. が LTS
+"npm:yarn" = "1.22.22"  # asdf 由来の ~/.default-npm-packages は非推奨になった
+python = "latest"
+uv = "latest"
+go = "latest"
+
+# Tool / Service
+k6 = ["latest", "0.59.0"]
+
+# Infrastructure
+terraform = ["latest", "1.9.8", "1.4.7"]
+tflint = "latest"
+trivy = "latest"
+awscli = "latest"
+supabase = "latest"
+gh = "latest"
+
+[settings]
+python.uv_venv_auto = "source"

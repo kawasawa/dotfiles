@@ -1,0 +1,13 @@
+# ******************************************************************************
+# Dock に表示するアプリを定義する
+# ******************************************************************************
+
+/System/Applications/Utilities/Activity Monitor.app
+/System/Applications/Utilities/Console.app
+/Applications/Safari.app
+Applications/Google Chrome.app
+/System/Applications/Siri AI.app
+/Applications/Claude.app
+/System/Applications/Notes.app
+/Applications/Visual Studio Code.app
+/Applications/Sourcetree.app
