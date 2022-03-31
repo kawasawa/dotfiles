@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Battery_battery_additional</key>
+	<string>percentage</string>
+	<key>Battery_battery_hideAdditionalWhenFull</key>
+	<false/>
+	<key>Battery_processes</key>
+	<integer>0</integer>
+	<key>CPU_state</key>
+	<false/>
+	<key>Disk_state</key>
+	<false/>
+	<key>LaunchAtLoginNext</key>
+	<true/>
+	<key>NSNavLastRootDirectory</key>
+	<string>~/repos/dotfiles/macos</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{800, 448}</string>
+	<key>NSNavPanelExpandedStateForSaveMode</key>
+	<true/>
+	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<true/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>440 432 800 448 0 0 1680 1025 </string>
+	<key>Network_state</key>
+	<false/>
+	<key>RAM_mini_alignment</key>
+	<string>center</string>
+	<key>RAM_mini_label</key>
+	<false/>
+	<key>RAM_updateInterval</key>
+	<integer>3</integer>
+	<key>RAM_updateTopInterval</key>
+	<integer>3</integer>
+	<key>Sensors_state</key>
+	<true/>
+	<key>runAtLoginInitialized</key>
+	<true/>
+	<key>sensor_TW0P</key>
+	<true/>
+	<key>setupProcess</key>
+	<true/>
+	<key>telemetry</key>
+	<false/>
+	<key>telemetry_id</key>
+	<string>7094E5DB-7605-484D-9D43-F4D30022D3C8</string>
+	<key>update-interval</key>
+	<string>Once per month</string>
+	<key>updater_check_ts</key>
+	<integer>1712587282</integer>
+	<key>version</key>
+	<string>2.10.7</string>
+</dict>
+</plist>
