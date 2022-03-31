@@ -1,0 +1,146 @@
+# ------------------------------------------------------------------------------
+# dotfiles セットアップ Play
+# ------------------------------------------------------------------------------
+- name: Setup dotfiles
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    source: "{{ repos }}/configs"
+  tasks:
+    # Git
+    - name: Migrate Git config
+      copy:
+        src: "{{ source }}/.gitconfig"
+        dest: "{{ ansible_facts.env.HOME }}/.gitconfig"
+
+    # zplug
+    - name: if zplug exists
+      stat:
+        path: "{{ ansible_facts.env.HOME }}/.zplug"
+      register: zplug_stat # 指定のパスの状態を取得
+    - name: Clone zplug repository
+      git:
+        repo: https://github.com/zplug/zplug
+        dest: "{{ ansible_facts.env.HOME }}/.zplug"
+        clone: yes
+      when: not zplug_stat.stat.exists # ディレクトリが存在しない場合のみ実行
+
+    # Ghostty
+    - name: Create Ghostty directory
+      file:
+        path: "{{ ansible_facts.env.HOME }}/Library/Application Support/com.mitchellh.ghostty"
+        state: directory
+        mode: '0755'
+    - name: Migrate Ghostty config
+      copy:
+        src: "{{ source }}/ghostty/config"
+        dest: "{{ ansible_facts.env.HOME }}/Library/Application Support/com.mitchellh.ghostty"
+    
+    # Yazi
+    - name: Create Yazi config directory
+      file:
+        path: "{{ ansible_facts.env.HOME }}/.config/yazi"
+        state: directory
+        mode: '0755'
+    - name: Migrate Yazi config
+      copy:
+        src: "{{ source }}/yazi/"
+        dest: "{{ ansible_facts.env.HOME }}/.config/yazi"
+    - name: Install Yazi packages
+      shell: |
+        ya pkg install
+
+    # GitHub Copilot
+    - name: Remove old Copilot skills
+      file:
+        path: "{{ ansible_facts.env.HOME }}/.copilot/skills"
+        state: absent
+      ignore_errors: true # 実行時のエラーを無視
+    - name: Migrate Copilot config
+      copy:
+        src: "{{ source }}/copilot"
+        dest: "{{ ansible_facts.env.HOME }}"
+
+    # .rc
+    - name: Migrate .rc files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ ansible_facts.env.HOME }}/{{ item | basename }}"
+      with_fileglob:
+        - "{{ source }}/.*rc" # パターンマッチしたファイルをループ
+
+# ------------------------------------------------------------------------------
+# mise セットアップ Play
+# ------------------------------------------------------------------------------
+- name: Setup Runtimes
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/packages"
+  tasks:
+    - name: Create mise config directory
+      file:
+        path: "{{ ansible_facts.env.HOME }}/.config/mise"
+        state: directory
+        mode: "0755"
+
+    - name: Migrate mise config
+      copy:
+        src: "{{ source }}/mise.toml"
+        dest: "{{ ansible_facts.env.HOME }}/.config/mise/config.toml"
+
+    - name: Install mise packages
+      shell: |
+        mise trust
+        mise install
+      # shell は自由度が高い反面、環境依存の温床になるため推奨はしない
+
+# ------------------------------------------------------------------------------
+# VSCode セットアップ Play
+# ------------------------------------------------------------------------------
+- name: Setup VSCode
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/configs/vscode"
+    vscode_user_dir: "{{ ansible_facts.env.HOME }}/Library/Application Support/Code/User"
+  tasks:
+    - name: Migrate VSCode settings
+      copy:
+        src: "{{ item }}"
+        # jsonc 形式ファイルを json に変換してコピー
+        dest: "{{ vscode_user_dir }}/{{ item | basename | regex_replace('\\.jsonc$', '.json') }}"
+      with_fileglob:
+        - "{{ source }}/*.jsonc"
+
+    - name: Remove old VSCode prompts
+      file:
+        path: "{{ vscode_user_dir }}/prompts"
+        state: absent
+      ignore_errors: true # 実行時のエラーを無視
+
+    - name: Migrate VSCode config
+      copy:
+        src: "{{ source }}/prompts"
+        dest: "{{ vscode_user_dir }}"
+
+    - name: beep
+      command: afplay /System/Library/Sounds/Ping.aiff
+      ignore_errors: true # 実行時のエラーを無視
+
+    # 次の処理が重いので一旦間を入れる (スキップしたければこのタイミングで)
+    - name: pause
+      pause:
+        seconds: 10 # 指定時間の待機だけでなく、次の Task を即時実行 or この Play を中断 も可能
+
+    - name: Install VSCode extensions
+      shell: |
+        code --install-extension "{{ item }}"
+        sleep 0.5 # 拡張機能のインストールを連続で実施するとロックが取れずにコケるので間隔を空ける
+      loop: "{{ lookup('file', ansible_facts.env.HOME ~ '/repos/dotfiles/packages/vscode').splitlines() }}"
+      register: extension_install_result
+      until: extension_install_result.rc == 0
+      retries: 2 # 各ループでエラーが起きた場合に再施行
+      delay: 2 # リトライ時は念の為間を空ける
+      ignore_errors: true # 最終的に失敗した場合も無視

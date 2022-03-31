@@ -1,0 +1,572 @@
+// ******************************************************************************
+// VSCode 設定ファイル
+// ******************************************************************************
+
+{
+  // -----------------------------------------------------------------------------
+  // 基本動作
+  // -----------------------------------------------------------------------------
+
+  // テーマ
+  "workbench.colorTheme": "Dracula Theme", // カラーテーマを変更
+  "workbench.iconTheme": "a-file-icon-vscode", // ファイルアイコンテーマを変更
+  "workbench.productIconTheme": "a-file-icon-vscode-product-icon-theme", // プロダクトアイコンテーマを変更
+
+  // システム
+  "workbench.startupEditor": "newUntitledFile", // 起動時に無題のテキストを用意
+  "workbench.settings.editor": "json", // 設定画面のデフォルト表示を JSON エディタに変更
+  "keyboard.dispatch": "keyCode", // 端末によってはキー入力を正常に受け付けられない問題を解消
+  "security.workspace.trust.untrustedFiles": "open", // 承認済みワークスペースにおけるファイルの検証を無効化
+  "update.showReleaseNotes": false, // リリースノートを非表示
+  "workbench.welcomePage.walkthroughs.openOnInstall": false, // 拡張機能のチュートリアルを非表示
+  "workbench.enableExperiments": false, // 実験的な機能の利用を無効化
+  "accessibility.voice.speechLanguage": "ja-JP", // 読み上げに日本語を指定
+
+  // ウィンドウ
+  "window.autoDetectColorScheme": false, // OS のテーマに同期せずカラーテーマを優先
+  "window.autoDetectHighContrast": false, // OS のテーマに同期せずカラーテーマを優先
+  "window.openFilesInNewWindow": "off", // 既存のウィンドウでファイルを展開
+  "window.openFoldersInNewWindow": "default", // 既存のウィンドウでフォルダを展開
+  "window.dialogStyle": "custom", // ダイアログの VSCode のスタイルに変更
+  "window.titleBarStyle": "custom", // タイトルバーにコマンドパレットを統合
+  "chat.commandCenter.enabled": false, // チャットコントロールを非表示
+  "problems.showCurrentInStatus": true, // 発生している問題をステータスバーに表示
+
+  // サイドバー
+  "workbench.sideBar.location": "right", // プライマリサイドバーを右側に表示
+  "workbench.secondarySideBar.defaultVisibility": "visible", // セカンダリサイドバーを常に表示
+  "workbench.activityBar.location": "top", // アクティビティバーをアイコンか
+  "workbench.secondarySideBar.showLabels": false, // セカンダリサイドバーのタイトルをアイコン化
+  "workbench.panel.showLabels": false, // パネルエリアのタイトルをアイコン化
+  "workbench.view.alwaysShowHeaderActions": true, // ヘッダーの操作ボタンを常時表示
+  "workbench.tree.renderIndentGuides": "always", // ツリー内でのインデントガイドを表示
+  "workbench.tree.enableStickyScroll": true, // ツリー内でのスクロール時に親要素を固定表示
+  "workbench.list.smoothScrolling": true, // ツリー内のスムーススクロールを有効化
+  "workbench.list.horizontalScrolling": false, // ツリー内での水平スクロールを禁止
+  // > エクスプローラー
+  "explorer.openEditors.visible": 0, // "開いているエディター" を非表示
+  "explorer.autoReveal": true, // 選択中のファイルをプレビュー
+  "explorer.compactFolders": false, // 階層内の空フォルダを表示
+  "explorer.confirmDragAndDrop": false, // DnD 時の確認を無効化
+  "explorer.confirmPasteNative": false, // VSCode 外からのペースト時の確認を無効化
+  "explorer.confirmDelete": false, // ゴミ箱へ送る際の確認を無効化
+  "explorer.incrementalNaming": "smart", // コピー&ペースト時のファイル名に連番を付与
+  // > アウトライン
+  "outline.collapseItems": "alwaysCollapse", // アウトラインを折り畳み状態で表示
+  "outline.showConstants": false, // 定数を非表示
+  "outline.showVariables": false, // 変数を非表示
+  // > ソース管理
+  "scm.showActionButton": false, // "コミット" ボタンを非表示
+  // > 拡張機能
+  "extensions.closeExtensionDetailsOnViewChange": true, // 拡張機能詳細を自動クローズ
+
+  // ファイル
+  "files.autoGuessEncoding": true, // 文字コードを自動識別
+  "files.autoSave": "off", // 自動保存を無効化
+  "files.hotExit": "off", // 未保存ファイルのバックアップを無効化
+  "files.readonlyFromPermissions": true, // 書き込みのパーミッションが無いファイルは ReadOnly で開く
+
+  // エディタ
+  "editor.lineHeight": 1.45, // 行の高さ
+  "editor.links": false, // URL リンクを無効化
+  "editor.wordWrap": "off", // 折返し表示
+  "editor.wrappingIndent": "indent", // 折り返し表示の際にインデントを付与
+  "editor.showFoldingControls": "always", // 折り畳みコントロールを常時表示
+  "editor.stickyScroll.enabled": true, // スクロール時に親要素を固定表示
+  "editor.mouseWheelZoom": false, // マウスホイールによるズームを無効化
+  "editor.copyWithSyntaxHighlighting": false, // プレーンテキストとしてコピー
+  "editor.wordSegmenterLocales": ["ja"], // 日本語によるセグメンテーション
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?", // 区切り文字を指定 (ハイフンを除外)
+  "editor.accessibilitySupport": "off", // スクリーンリーダーサポートを無効化
+  "workbench.tips.enabled": false, // エディタが空の状態でのヒント表示を無効化 // [Bug]: code-server ignores "workbench.tips.enabled" setting - https://github.com/coder/code-server/issues/5884
+  "workbench.editor.empty.hint": "hidden", // 新しい空ファイルのヒント表示を無効化
+  "workbench.editor.untitled.labelFormat": "name", // 新しいファイルに対するタイトルの自動設定を無効化
+  //"workbench.editor.closeEmptyGroups": false, // 空状態でグリッドレイアウトを保持
+  // > フォント
+  "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace", // フォントファミリ
+  "editor.fontSize": 13, // フォントサイズ
+  "editor.fontLigatures": true, // フォントリガチャ
+  // > アニメーション
+  "editor.smoothScrolling": true, // スムーススクロール
+  "editor.cursorBlinking": "smooth", // キャレット点滅時のアニメーションを有効化
+  "editor.cursorSmoothCaretAnimation": "off", // キャレット移動時のアニメーションを無効化
+  // > 強調表示
+  "editor.renderLineHighlight": "all", // カレント行を強調表示
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#2D2C57",
+  },
+  "editor.roundedSelection": false, // 選択範囲のラウンド表示を無効化
+  "editor.matchBrackets": "always", // ブラケットペアを強調表示
+  "editor.guides.bracketPairs": "active", // ブラケットペアの範囲を垂直ガイド表示
+  "editor.guides.bracketPairsHorizontal": "active", // ブラケットペアの範囲を水平ガイド表示
+  "indentRainbow.indicatorStyle": "light", // インデントガイドの表示
+  "indentRainbow.lightIndicatorStyleLineWidth": 3, // インデントガイドの太さ
+  // > 可視化
+  "editor.renderWhitespace": "all", // 空白を可視化
+  "editor.renderControlCharacters": true, // 制御文字を可視化
+  "editor.inlayHints.padding": true, // ヒント表示に余白を作る
+  // > 入力補完
+  "editor.suggestSelection": "first", // 補完候補の先頭を自動選択
+  "editor.snippetSuggestions": "top", // スニペットがあれば優先表示
+  "editor.suggest.snippetsPreventQuickSuggestions": false, // スニペットの補完中も入力補完を維持
+  "editor.tabCompletion": "onlySnippets", // プレフィックスが一致する場合に TAB で入力補完
+  "editor.suggest.showStatusBar": true, // 補完候補リストにステータスバーを付与
+  // > ドキュメントマップ
+  "editor.overviewRulerBorder": false, // エディタとスクロールバーの境界線を除去
+  "editor.minimap.enabled": false, // ドキュメントマップを表示
+  //"editor.minimap.autohide": true, // ホバー時にドキュメントマップを表示
+  //"editor.minimap.maxColumn": 50, // ドキュメントマップのサイズを指定
+  //"editor.minimap.renderCharacters": false, // ドキュメントマップ上の表示をカラーブロックに変更
+  //"editor.minimap.showSlider": "always", // ドキュメントマップ上のスライダーを表示
+  // > タブ
+  "workbench.editor.tabSizing": "shrink", // タブサイズの可変表示
+  "workbench.editor.openPositioning": "last", // 末尾に新しいタブを作成して開く
+  "workbench.editor.revealIfOpen": true, // 既存のエディタグループにファイルを展開
+  "workbench.editor.wrapTabs": true, // タブが多い場合に多段表示に切り替える
+  "workbench.editor.pinnedTabsOnSeparateRow": true, // ピン留めされたタブを多段表示する
+  // > パンくずリスト
+  "breadcrumbs.enabled": true, // パンくずリストの有効化
+  "breadcrumbs.icons": true, // パンくずリスト内でアイコン表示
+  "breadcrumbs.filePath": "on", // パンくずリストでファイルパスを表示
+
+  // 検索
+  "editor.gotoLocation.multipleDefinitions": "gotoAndPeek", // 複数候補がある場合も移動
+  "editor.gotoLocation.multipleTypeDefinitions": "gotoAndPeek", // 複数候補がある場合も移動
+  "search.searchEditor.defaultNumberOfContextLines": 0, // 検索エディタの前後行表示を無効化
+
+  // ターミナル
+  "terminal.integrated.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace", // フォントファミリ
+  "terminal.integrated.fontSize": 13, // フォントサイズ
+  "terminal.integrated.rightClickBehavior": "default", // 通常のコンテキストメニューを表示
+  "terminal.integrated.enableMultiLinePasteWarning": "never", // 複数行ペースト時の警告を無効化
+  "terminal.integrated.smoothScrolling": true, // ターミナル内のスムーススクロールを有効化
+  "terminal.integrated.cursorBlinking": true, // キャレットの点滅を有効化
+  "terminal.integrated.enableVisualBell": true, // ビープを可視化
+  "terminal.integrated.enableImages": true, // 画像表示を有効化
+  "terminal.integrated.tabs.showActiveTerminal": "never", // ターミナルタイトルを非表示
+  "terminal.integrated.tabs.showActions": "always", // 操作ボタンを常時表示
+  "terminal.integrated.tabs.hideCondition": "singleGroup", // 単一グループ時はターミナルタブを非表示
+  "terminal.integrated.confirmOnKill": "never", // エディター領域上のターミナルの終了確認を無効化 (FindItFaster で利用するときにたまに邪魔になるため)
+  "terminal.integrated.suggest.enabled": true, // ターミナルでインテリセンスを有効化
+
+  // デバッグ
+  "debug.inlineValues": "auto", // 変数値をインラインビューで表示
+  "debug.showInStatusBar": "always", // 常にデバッグ状況をステータスバーに表示
+  "debug.toolBarLocation": "docked", // デバッグツールバーをドッキング表示
+  "debug.internalConsoleOptions": "openOnSessionStart", // デバッグ開始時にデバッグコンソールを表示
+
+  // Diff
+  "diffEditor.hideUnchangedRegions.enabled": true, // 変更がない領域を非表示
+  "diffEditor.ignoreTrimWhitespace": false, // 先頭と末尾の空白の変更を考慮
+  "diffEditor.diffAlgorithm": "advanced", // 高度な差分検出アルゴリズム
+  "mergeEditor.diffAlgorithm": "advanced", // 高度な差分検出アルゴリズム
+
+  // Docker
+  "docker.extension.dockerEngineAvailabilityPrompt": false, // Docker Engine の存在チェックを無効化
+  "docker.extension.enableComposeLanguageServer": true, // Docker Compose のサポートを有効化 (!!! RedHat YAML 拡張機能を入れていると競合する !!!)
+
+  // Git
+  "scm.alwaysShowRepositories": true, // 「ソース管理」にリポジトリの情報を表示
+  "scm.inputFontFamily": "editor", // 「ソース管理」の入力フォントをエディターと統一
+  "git.autofetch": true, // 自動フェッチを実施
+  "git.autoStash": true, // pull 時に自動で stash save/pop を実行
+  "git.pruneOnFetch": true, // ブランチの削除をローカルに反映
+  "git.confirmSync": true, // リポジトリ同期前に確認
+  "git.alwaysShowStagedChangesResourceGroup": true, // ステージ済み領域を常に表示,
+  "git.enableStatusBarSync": false, // ステータスバーの Git Sync ボタンを無効化
+  "git.suggestSmartCommit": false, // スマートコミットの推奨通知を無効化
+  "git.inputValidation": true, // コミットメッセージの入力文字数をチェック
+  "git.openRepositoryInParentFolders": "never", // 親フォルダにGitリポジトリが見つかっても開かない
+  "git.ignoreLegacyWarning": true, // Git の旧バージョンに対する警告を無効化
+  "git.ignoreMissingGitWarning": true, // Git の未検出に対する警告を無効化
+  "git.timeline.showUncommitted": true, // タイムラインに未コミットの変更を表示
+  "git.blame.statusBarItem.enabled": false, // Git Blame をステータスバーから除去
+  "git.blame.editorDecoration.enabled": true, // Git Blame をエディタに表示
+  "git.blame.editorDecoration.template": "${subject}, ${authorName} (${authorDate})", // Git Blame の書式を指定
+  "githubPullRequests.fileListLayout": "flat", // プルリクエストの一覧表示を調整
+
+  // -----------------------------------------------------------------------------
+  // 拡張機能
+  // -----------------------------------------------------------------------------
+
+  "extensions.ignoreRecommendations": true, // 推奨される拡張機能を通知するポップアップを無効化
+
+  // GitHub Copilot
+  "chat.emptyState.history.enabled": true, // 初期状態でチャット履歴を表示
+  "chat.mcp.gallery.enabled": true, // MCP Marketplace を有効化
+  "chat.promptFiles": true, // プロンプトファイルを有効化
+  "chat.todoListTool.enabled": true, // TODO リストを有効化
+  "chat.editRequests": "hover", // ホバーでチャット編集方法
+  "chat.agent.enabled": true, // エージェントモードを有効化
+  "chat.agent.maxRequests": 100, // １セッションでエージェントが行う編集リクエストの上限 (この値を超過すると継続確認が入る)
+  "chat.agent.thinkingStyle": "collapsedPreview", // 思考過程をプレビュー表示
+  "chat.viewSessions.orientation": "stacked", // セッションビューをスタック表示
+  "chat.agentSessionsViewLocation": "view", // エージェントセッションビューを表示
+  "chat.useAgentSkills": true, // エージェントスキルを有効化
+  "chat.edits2.enabled": true, // 新しい Edit モードを有効化
+  "chat.customAgentInSubagent.enabled": true, // サブエージェントでカスタムエージェントを有効化
+  "inlineChat.enableV2": true, // 新しいインラインチャットを有効化
+  "github.copilot.chat.localeOverride": "ja",
+  "github.copilot.chat.codesearch.enabled": true, // コード検索を強化 '#codebase'
+  "github.copilot.chat.newWorkspace.useContext7": true, // Context7 でスキャフォールドを強化 '#newWorkspace'
+  "github.copilot.chat.agent.thinkingTool": true, // 思考ツールを有効化
+  "github.copilot.chat.useResponsesApi": true, // Responses API を有効化
+  "github.copilot.chat.responsesApiReasoningEffort": "high", // Responses API の推論レベルを強化
+  "github.copilot.chat.executePrompt.enabled": true, // サブエージェント機能を有効
+  "github.copilot.chat.switchAgent.enabled": true, // 計画エージェントへの切替を有効化
+  "github.copilot.chat.languageContext.typescript.enabled": true,
+  "github.copilot.chat.languageContext.typescript.includeDocumentation": true,
+  "github.copilot.chat.languageContext.inline.typescript.enabled": true,
+  "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.mcp.discovery.enabled": {
+    "cursor-global": true,
+    "cursor-workspace": true,
+    "claude-desktop": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    "/^git (status|show\\b.*)$/": true, // Git の状態確認を許可
+    "/^npx tsc(\\s+.+)?$/": true, // 型チェック `tsc --noEmit` 用
+    "/^(npm run|yarn|pnpm|npx expo) (lint|test)(\\s+.+)?$/": true, // lint, test を許可
+    "/^(npm run|yarn|pnpm) build$/": true, // build は念の為引数無しの場合だけ許可
+  },
+  "chat.tools.urls.autoApprove": {
+    "https://www.google.com/search": true,
+    "https://developer.apple.com": true,
+    "https://support.apple.com": true,
+    "https://stackoverflow.com": true,
+    "https://github.com": true,
+    "https://www.jetbrains.com": true,
+    "https://reactnative.dev": true,
+    "https://docs.flutter.dev": true,
+  },
+
+  // Git Graph
+  "git-graph.date.format": "ISO Date & Time",
+  "git-graph.date.type": "Commit Date",
+  "git-graph.graph.style": "angular",
+  "git-graph.repository.showStashes": false,
+  "git-graph.maxDepthOfRepoSearch": 1,
+  "git-graph.commitDetailsView.location": "Docked to Bottom",
+  "git-graph.commitDetailsView.fileView.type": "File List",
+
+  // Version Lens
+  "versionlens.suggestions.showOnStartup": false,
+  "versionlens.caching.duration": 1440,
+
+  // Error Lens
+  "errorLens.messageTemplate": "$source: $message",
+  "errorLens.fontWeight": "200",
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.gutterIconSet": "defaultOutline",
+
+  // code-eol
+  "code-eol.color": "#777777",
+
+  // Code Spell Checker
+  "cSpell.language": "en",
+  "cSpell.showCommandsInEditorContextMenu": false,
+  "cSpell.ignorePaths": ["**/settings.json*"],
+
+  // Todo Tree
+  "todo-tree.general.statusBar": "total",
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.buttons.export": true,
+  "todo-tree.tree.expanded": true,
+  "todo-tree.tree.flat": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "borderRadius": "0",
+    "gutterIcon": true,
+  },
+
+  // Auto Hide
+  // "autoHide.autoHideAuxiliaryBar": false,
+  // "autoHide.autoHidePanel": false,
+
+  // FindItFaster
+  // "find-it-faster.advanced.disableStartupChecks": true,
+  // "find-it-faster.general.hideTerminalAfterSuccess": false,
+  // "find-it-faster.general.hideTerminalAfterFail": false,
+  // "find-it-faster.general.killTerminalAfterUse": true,
+  // "find-it-faster.general.useTerminalInEditor": true,
+  // "find-it-faster.general.batTheme": "Dracula", // テーマカラーを指定
+  // "find-it-faster.findFiles.showPreview": true, // ファイル検索時にプレビューウィンドウを表示
+  // "find-it-faster.findFiles.previewCommand": "bat --color=always {1}", // 行番号付きのカラー表示
+  // "find-it-faster.findFiles.previewWindowConfig": "right,60%,border-left,+{2}+3/3,~3", // プレビューウィンドウの配置を指定
+  // "find-it-faster.findWithinFiles.showPreview": true, // ファイル内検索時にプレビューウィンドウを表示
+  // "find-it-faster.findWithinFiles.previewCommand": "bat --color=always {1} --highlight-line {2}", // 行番号付きのカラー表示
+  // "find-it-faster.findWithinFiles.previewWindowConfig": "right,60%,border-left,+{2}+3/3,~3", // プレビューウィンドウの配置を指定
+
+  // Keyboard Macro
+  "keyboardMacro.recordingShortcuts": "Option2",
+
+  // Partial Diff
+  "partialDiff.commandsOnContextMenu": {
+    "diffVisibleEditors": false,
+    "togglePreComparisonTextNormalizationRules": false,
+  },
+
+  // draw.io
+  "hediet.vscode-drawio.appearance": "light",
+  "hediet.vscode-drawio.resizeImages": null,
+
+  // SQLTools
+  "sqltools.autoOpenSessionFiles": false,
+  "sqltools.disableReleaseNotifications": true,
+  "sqltools.results.location": "current",
+  "sqltools.results.limit": 100,
+  "sqltools.results.reuseTabs": "connection",
+
+  // TypeScript / JavaScript
+  "typescript.updateImportsOnFileMove.enabled": "always", // ファイルパスの変更時にインポートパスを自動更新
+  "typescript.suggest.completeFunctionCalls": true, // 括弧を付けてメソッドを補完
+  "typescript.inlayHints.parameterNames.enabled": "all", // 仮引数の名前をヒント表示
+  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true, // 名称一致時は非表示
+  "javascript.updateImportsOnFileMove.enabled": "always", // ファイルパスの変更時にインポートパスを自動更新
+  "javascript.suggest.completeFunctionCalls": true, // 括弧を付けてメソッドを補完
+  "javascript.inlayHints.parameterNames.enabled": "all", // 仮引数の名前をヒント表示
+  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true, // 名称一致時は非表示
+  "jest.shell": { "path": "/bin/zsh", "args": ["--login"] },
+  "jest.runMode": "on-demand",
+
+  // Python
+  "python.createEnvironment.trigger": "off", // 環境検出を無効化
+  "python.terminal.activateEnvironment": false, // 仮想環境の自動アクティベートを無効化
+  "python.analysis.inlayHints.callArgumentNames": "partial", // 仮引数の名前をヒント表示
+
+  // Go
+  "go.toolsManagement.autoUpdate": false, // 拡張機能の自動更新を無効化
+  "go.inlayHints.parameterNames": true, // 仮引数の名前をヒント表示
+
+  // C#
+  "csharp.suppressDotnetInstallWarning": true, // .NET SDK の未検出に対する警告を無効化
+  "dotnet.inlayHints.enableInlayHintsForParameters": true, // 仮引数の名前をヒント表示
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true, // 名称一致時は非表示
+  "dotnet.codeLens.enableReferencesCodeLens": false, // 参照のコードレンズを非表示
+  "dotnet.codeLens.enableTestsCodeLens": false, // テストのコードレンズを非表示
+
+  // Markdown
+  "markdownShortcuts.bold.marker": "**",
+  "markdownShortcuts.italics.marker": "_",
+  "markdownShortcuts.bullets.marker": "-",
+  "markdownShortcuts.icons.bold": false,
+  "markdownShortcuts.icons.italic": false,
+  "markdownShortcuts.icons.strikethrough": true,
+  "markdownShortcuts.icons.link": true,
+  "markdownShortcuts.icons.image": true,
+  "markdownShortcuts.icons.citations": true,
+  "markdownShortcuts.icons.bullets": false,
+  // "markdown.preview.breaks": false, // プレビュー時の改行反映を無効化
+  // "markdown-pdf.breaks": false, // PDF変換時の改行反映を無効化
+  // "markdown-pdf.convertOnSave": false, // 保存時の自動変換を無効化
+  // "markdown-pdf.displayHeaderFooter": false, // PDF変換時のヘッダー、フッターを非表示
+  // "markdown-pdf.type": ["pdf"], // 変換フォーマットを指定
+
+  // -----------------------------------------------------------------------------
+  // テレメトリの設定
+  //
+  // !!!!! TODO: 拡張機能追加時に該当設定の有無を確認しメンテナンスする !!!!!
+  // -----------------------------------------------------------------------------
+
+  "telemetry.telemetryLevel": "off",
+  "partialDiff.enableTelemetry": false,
+  "gitlens.telemetry.enabled": false,
+  "redhat.telemetry.enabled": false,
+  "code-runner.enableAppInsights": false,
+  "rest-client.enableTelemetry": false,
+  "postman.telemetry.enabled": false,
+  "dotnetAcquisitionExtension.enableTelemetry": false,
+  "intelephense.telemetry.enabled": false,
+  "aws.telemetry": false,
+
+  // ##############################################################################
+  // 以降 環境依存の設定
+  // ##############################################################################
+
+  // ターミナルの関連付け
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.env.windows": {
+    "PSExecutionPolicyPreference": "RemoteSigned", // PowerShell スクリプトの実行ポリシーを緩和
+  },
+  // "terminal.external.windowsExec": "C:\\Windows\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe",
+
+  // 拡張子の関連付け
+  "files.associations": {
+    "*.*vimrc": "viml",
+    "*.env.*": "properties",
+    "*.cnf": "properties",
+    "*.toml": "properties",
+    "*.hcl": "terraform",
+  },
+
+  // アノテーションコメント
+  // 見た目だけ調整する (トリガーとなるキーワードやそのグルーピングはプロジェクト依存であるため)
+  "todo-tree.highlights.customHighlight": {
+    // 対応が必要なもの
+    "BUG": {
+      "icon": "alert",
+      "iconColour": "#DF6B92",
+      "background": "#DF6B92",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold",
+    },
+    // 改善の余地があるもの
+    "HACK": {
+      "icon": "tools",
+      "iconColour": "#377E22",
+      "background": "#377E22",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold",
+    },
+    // 今後実装するもの
+    "FIXME": {
+      "icon": "tasklist",
+      "iconColour": "#FFAE00",
+      "background": "#FFAE00",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold",
+    },
+    "XXX": { "icon": "x" },
+    "[ ]": { "icon": "issue-draft" },
+    "[x]": { "icon": "issue-closed" },
+  },
+
+  // スペルチェック
+  "cSpell.userWords": [
+    // mine
+    "kawasawa",
+    "Kazuki",
+    "Awasawa",
+    "Yamanashi",
+
+    // Typescript
+    "jQuery",
+    "FormData",
+    "Pressable",
+    "EBADCSRFTOKEN",
+    "yarnrc",
+
+    // PHP
+    "XAMPP",
+    "Laravel",
+
+    // Python
+    "isort",
+    "splitlines",
+
+    // C#
+    "MahApps",
+
+    // C++
+    "gtkmm",
+
+    // Shell
+    "opendiff",
+    "afplay",
+    "urandom",
+    "urlencode",
+    "chdir",
+    "newkey",
+    "keyout",
+    "addext",
+
+    // Swagger
+    "codegen",
+
+    // Docker
+    "Distroless",
+    "curlimages",
+    "buildx",
+    "seccomp",
+
+    // Terraform
+    "tfstate",
+    "tfvars",
+    "terraformrc",
+    "tflint",
+    "appautoscaling",
+    "hostnames",
+    "cooldown",
+
+    // Ansible
+    "lineinfile",
+    "with_fileglob",
+
+    // AWS
+    "awscli",
+    "IMDS",
+    "DNSSEC",
+    "awsdns",
+    "rdsadmin",
+
+    // MySQL
+    "innodb",
+    "initdb",
+    "mysqld",
+    "slowquery",
+    "ibfk",
+
+    // Prisma
+    "autoincrement",
+    "cuid",
+
+    // Postman
+    "prerequest",
+    "htmlextra",
+
+    // Git
+    "ignorecase",
+    "quotepath",
+    "safecrlf",
+    "difftool",
+    "mergetool",
+    "oneline",
+
+    // misc
+    "Supabase",
+    "LocalStack",
+    "Metabase",
+    "RedMine",
+    "SonarQube",
+    "qube",
+    "Dsonar",
+    "tbls",
+    "TablePlus",
+    "Ghostty",
+    "Marp",
+    "Qiita",
+
+    // other
+    "ignorefile",
+    "exitcode",
+    "apikey",
+    "keymap",
+    "keybind",
+    "webp",
+    "rgba",
+  ],
+
+  // ファイル設定
+  "files.eol": "\n", // 改行文字
+  "files.encoding": "utf8", // 文字コード
+
+  // 自動整形
+  // "files.insertFinalNewline": true, // ファイル末尾に改行を挿入
+  // "files.trimFinalNewlines": true, // 最終行以降の空行を除去
+  // "files.trimTrailingWhitespace": true, // 行末の空白を除去
+  // "editor.formatOnType": true, // 入力時にフォーマット
+  // "editor.formatOnPaste": true, // ペースト時にフォーマット
+  // "editor.formatOnSave": true, // 保存時にフォーマット
+  // "editor.codeActionsOnSave": { // 保存時に整形処理を実行
+  //   "source.fixAll.eslint": "explicit",
+  //   "source.organizeImports": "explicit"
+  // },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+  },
+  "[tsv]": {
+    "editor.insertSpaces": false,
+  },
+}

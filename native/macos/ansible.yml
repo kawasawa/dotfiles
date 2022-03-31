@@ -1,0 +1,284 @@
+# ------------------------------------------------------------------------------
+# OS 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure System
+  hosts: localhost
+  connection: local
+  tasks:
+    # キープレス時の特殊文字（アクセント記号付き文字）選択パネル表示を無効化
+    - name: Enable key repeat
+      osx_defaults:
+        domain: NSGlobalDomain
+        key: ApplePressAndHoldEnabled
+        type: bool
+        value: false
+
+    # 隠しファイルの可視化
+    - name: Show hidden files in Finder
+      osx_defaults:
+        domain: com.apple.Finder
+        key: AppleShowAllFiles
+        type: bool
+        value: true
+      notify: Restart Finder # 実行結果が changed の場合にハンドラを呼び出す
+
+    # スクリーンショットの影を無効化
+    - name: Disable screenshot shadow
+      osx_defaults:
+        domain: com.apple.screencapture
+        key: disable-shadow
+        type: bool
+        value: true
+      notify: Restart SystemUIServer
+
+  handlers: # タスクから呼び出されるハンドラを定義できる
+    - name: Restart Finder
+      command: killall Finder
+      ignore_errors: true
+
+    - name: Restart SystemUIServer
+      command: killall SystemUIServer
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# Dock 設定構築 Play
+# ------------------------------------------------------------------------------
+- name: Configure Dock
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/native/macos"
+  tasks:
+    - name: Clear existing Dock apps
+      command: defaults delete com.apple.dock persistent-apps
+      ignore_errors: true
+
+    - name: Clear existing Dock others
+      command: defaults delete com.apple.dock persistent-others
+      ignore_errors: true
+
+    - name: Read Dock apps list
+      slurp:
+        src: "{{ source }}/system/dockapps"
+      register: dockapps_content
+
+    - name: Add apps to Dock
+      command: >
+        defaults write com.apple.dock persistent-apps -array-add
+        '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+      # '#' で始まる行と空行は無視する
+      loop: "{{ dockapps_content.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | list }}"
+      notify: Restart Dock
+
+  handlers:
+    - name: Restart Dock
+      command: killall Dock
+      ignore_errors: true
+
+# ------------------------------------------------------------------------------
+# 拡張子関連付け Play
+#   ファイルを開く際にデフォルトアプリとして CLI の msedit を使用したい
+#   CLI アプリは直接関連付けできないため、中継アプリを作成しその内部でターミナルを経由して起動させる
+# ------------------------------------------------------------------------------
+- name: Configure Editor Associations
+  hosts: localhost
+  connection: local
+  vars:
+    source: "{{ ansible_facts.env.HOME }}/repos/dotfiles/native/macos"
+    user_app_dir: "{{ ansible_facts.env.HOME }}/Applications"
+    kicked_cli_app_path: /opt/homebrew/bin/edit
+    launcher_name: "msedit-launcher"
+    launcher_display_name: MSEdit Launcher
+    launcher_bundle_id: "org.kawasawa.mseditlauncher"
+    launcher_app_path: "{{ user_app_dir }}/{{ launcher_display_name }}.app"
+    launcher_app_plist_path: "{{ launcher_app_path }}/Contents/Info.plist"
+    launcher_log_path: "{{ launcher_log_dir }}/{{ launcher_name }}.log"
+    launcher_log_dir: "{{ ansible_facts.env.HOME }}/Library/Logs"
+    # terminal_app_bundle_id: "com.mitchellh.ghostty"
+    terminal_app_bundle_id: "com.apple.Terminal"
+  tasks:
+    # 関連付ける拡張子の一覧をリスト化
+    - name: Read associations settings
+      slurp:
+        src: "{{ source }}/system/associations"
+      register: extensions
+    - name: Extract extensions list
+      set_fact:
+        assoc_exts: "{{ extensions.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | map('regex_replace','^\\.?','') | list }}"
+      when: extensions is defined
+
+    # # 必要なディレクトリを作成
+    # - name: Create User Applications directory
+    #   file:
+    #     path: "{{ user_app_dir }}"
+    #     state: directory
+    #     mode: '0755'
+    # - name: Create App log directory
+    #   file:
+    #     path: "{{ launcher_log_dir }}"
+    #     state: directory
+    #     mode: '0755'
+
+    # # CLI 起動スクリプトを構築
+    # #   一時ファイルの内容を CLI アプリに引き渡して起動する
+    # - name: Write broker script
+    #   copy:
+    #     dest: "{{ user_app_dir }}/broker.command"
+    #     content: |
+    #       #!/bin/bash
+    #       ARGS="/tmp/{{ launcher_name }}-args"
+    #       LOG="{{ launcher_log_path }}"
+
+    #       # 引数が存在しない場合はそのまま CLI アプリを起動
+    #       if [ ! -r "$ARGS" ] || [ ! -s "$ARGS" ]; then
+    #         echo "$(date '+%Y-%m-%d %H:%M:%S') broker: call CLI" >> "$LOG"
+    #         exec {{ kicked_cli_app_path }}
+    #       fi
+
+    #       # 一時ファイルにファイルパスが入っている想定（各行が 1 ファイルのパス）
+    #       # 空行を無視して配列に格納
+    #       FILES=()
+    #       idx=0
+    #       while IFS= read -r line || [ -n "$line" ]; do
+    #         [ -z "$line" ] && continue
+    #         FILES[$idx]="$line"
+    #         idx=$((idx+1))
+    #       done < "$ARGS"
+    #       rm -f "$ARGS"
+    #       echo "$(date '+%Y-%m-%d %H:%M:%S') broker: got {% raw %}${#FILES[@]}{% endraw %} files" >> "$LOG"
+
+    #       # CLI アプリにファイルパスを渡して起動
+    #       echo "$(date '+%Y-%m-%d %H:%M:%S') broker: call CLI with args" >> "$LOG"
+    #       exec {{ kicked_cli_app_path }} "${FILES[@]}"
+    #     mode: '0755'
+
+    # # ランチャーアプリのソースを構築
+    # #   引数で受け取ったパスを一時ファイルに書き込み CLI 起動スクリプトを実行する
+    # - name: Write app source file
+    #   copy:
+    #     dest: "/tmp/{{ launcher_name }}-source.applescript"
+    #     content: |
+    #       on run argv
+    #         process_items(argv)
+    #       end run
+
+    #       on open theFiles
+    #         process_items(theFiles)
+    #       end open
+
+    #       on process_items(itemList)
+    #         try
+    #           -- 受け取ったファイルを改行区切りで一時ファイルに書き込む
+    #           set out to ""
+    #           repeat with i in itemList
+    #             set fp to POSIX path of i
+    #             set out to out & fp & (ASCII character 10)
+    #             do shell script "echo $(date '+%Y-%m-%d %H:%M:%S') launcher: " & quoted form of fp & " >> {{ launcher_log_path }}"
+    #           end repeat
+
+    #           -- 一時ファイルのパスをブローカーに渡して起動
+    #           do shell script "echo $(date '+%Y-%m-%d %H:%M:%S') launcher: call broker with args >> {{ launcher_log_path }}"
+    #           do shell script "printf %s " & quoted form of out & " > /tmp/{{ launcher_name }}-args && /usr/bin/open " & quoted form of ("{{ user_app_dir }}/broker.command")
+
+    #         on error errMsg number errNum
+    #           -- エラー時は引数無しでブローカーを起動
+    #           do shell script "echo $(date '+%Y-%m-%d %H:%M:%S') launcher: error occurred. " & quoted form of errMsg & " >> {{ launcher_log_path }}"
+    #           do shell script "/usr/bin/open " & quoted form of ("{{ user_app_dir }}/broker.command")
+    #         end try
+    #       end process_items
+
+    # # ソースをコンパイルして App バンドルを生成
+    # #   これにより Finder の 'open' イベント（ダブルクリックイベント）を正しく受け取れるようになる
+    # #   既存の App バンドルがあると失敗するため、事前に削除しておく
+    # - name: Remove existing App
+    #   file:
+    #     path: "{{ launcher_app_path }}"
+    #     state: absent
+    # - name: Compile App
+    #   command: osacompile -o "{{ launcher_app_path }}" "/tmp/{{ launcher_name }}-source.applescript"
+
+    # # アプリにバンドル識別子、アプリ名、バージョン情報を設定
+    # - name: Set CFBundleIdentifier
+    #   command: >
+    #     /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier {{ launcher_bundle_id }}" "{{ launcher_app_plist_path }}"
+    #   register: set_bundle_id
+    #   failed_when: false
+    # - name: Add CFBundleIdentifier if missing
+    #   command: >
+    #     /usr/libexec/PlistBuddy -c "Add :CFBundleIdentifier string {{ launcher_bundle_id }}" "{{ launcher_app_plist_path }}"
+    #   when: set_bundle_id.rc != 0
+    # - name: Set CFBundleName and Version
+    #   command: >
+    #     /usr/libexec/PlistBuddy -c "Set :CFBundleName {{ launcher_display_name }}" -c "Set :CFBundleVersion 1.0" -c "Set :CFBundleShortVersionString 1.0" "{{ launcher_app_plist_path }}"
+    #   failed_when: false
+
+    # # アプリを LaunchService に登録
+    # #   拡張子の関連付けが可能なアプリとして認識させる
+    # - name: Register App with Launch Services
+    #   command: "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f \"{{ launcher_app_path }}\""
+
+    # # アプリのプロパティリストに拡張子の関連付け情報を追加
+    # #   Finder の「このアプリケーションで開く」のリストに追加される
+    # - name: Add Types config
+    #   command: "/usr/libexec/PlistBuddy -c \"Add :CFBundleDocumentTypes array\" \"{{ launcher_app_plist_path }}\""
+    #   register: add_doc_types
+    #   failed_when: false
+    #   changed_when: add_doc_types.rc == 0
+    #   when: extensions is defined
+    # - name: Add dict to Types config
+    #   command: "/usr/libexec/PlistBuddy -c \"Add :CFBundleDocumentTypes:0 dict\" \"{{ launcher_app_plist_path }}\""
+    #   register: add_doc_dict
+    #   failed_when: false
+    #   changed_when: add_doc_dict.rc == 0
+    #   when: extensions is defined
+    # - name: Set TypeName and Rank
+    #   command: "/usr/libexec/PlistBuddy -c \"Set :CFBundleDocumentTypes:0:CFBundleTypeName Text files\" -c \"Set :CFBundleDocumentTypes:0:LSHandlerRank Owner\" \"{{ launcher_app_plist_path }}\""
+    #   failed_when: false
+    #   when: extensions is defined
+    # - name: Add Extensions array to Types config
+    #   command: "/usr/libexec/PlistBuddy -c \"Add :CFBundleDocumentTypes:0:CFBundleTypeExtensions array\" \"{{ launcher_app_plist_path }}\""
+    #   register: add_ext_array
+    #   failed_when: false
+    #   changed_when: add_ext_array.rc == 0
+    #   when: extensions is defined
+    # - name: Add Extensions
+    #   command: >
+    #     /usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:0:CFBundleTypeExtensions:{{ item_index }} string {{ item }}" "{{ launcher_app_plist_path }}"
+    #   loop: "{{ assoc_exts }}"
+    #   loop_control:
+    #     index_var: item_index
+    #   when:
+    #     - extensions is defined
+    #     - assoc_exts is defined
+
+    # 指定された拡張子の既定アプリに設定
+    #   Finder でファイルをダブルクリックしたときに起動するようになる
+    - name: Check if duti is installed
+      command: which duti
+      register: duti_check
+      ignore_errors: true
+    - name: Set file associations to Launcher
+      command: duti -s "org.vim.MacVim" {{ item }} all
+      # command: duti -s {{ launcher_bundle_id }} {{ item }} all
+      loop: "{{ extensions.content | b64decode | split('\n') | map('trim') | reject('match','^#') | reject('equalto','') | list }}"
+      when: duti_check.rc == 0 or (brew_install is defined and brew_install.rc == 0)
+
+    # # 既定のターミナルアプリに設定
+    # - name: Set Terminal associations
+    #   command: duti -s {{ terminal_app_bundle_id }} com.apple.terminal.shell-script shell
+    #   when: duti_check.rc == 0 or (brew_install is defined and brew_install.rc == 0)
+
+    # # 権限チェック
+    # #   一時ファイルを作成してランチャーを開く
+    # #   これにより OS からターミナルの制御権限の確認を促す
+    # - name: Remove existing test file
+    #   file:
+    #     path: "/tmp/{{ launcher_name }}-permission-check"
+    #     state: absent
+    # - name: Trigger permission prompt
+    #   command: |
+    #     /bin/sh -c 'tmpfile=$(mktemp /tmp/{{ launcher_name }}-permission-check); echo "permission check done." > "$tmpfile"; /usr/bin/open -n -a "{{ launcher_app_path }}" "$tmpfile"'
+    #   async: 0
+    #   poll: 0
+    #   ignore_errors: true
+
