@@ -1,0 +1,39 @@
+# ******************************************************************************
+# Ghostty 設定ファイル
+# ------------------------------------------------------------------------------
+# `~/Library/Application Support/com.mitchellh.ghostty/config` に保存
+# `⌘ ⇧ ,` で設定適用
+# > ghostty +show-config --default --docs でデフォルト設定一覧表示
+# > ghostty +list-themes でテーマ一覧表示
+# ******************************************************************************
+
+# ウィンドウ
+window-save-state = always
+background-opacity = 0.75
+background-blur-radius = 3
+
+# 入力
+font-family = "Moralerspace Argon HWJPDOC"
+font-size = 14.5
+font-thicken
+mouse-hide-while-typing
+cursor-style = block
+shell-integration-features = no-cursor
+
+# クリップボード
+clipboard-read = allow
+clipboard-write = allow
+
+
+# ------------------------------------------------------------------------------
+# macOS 固有の設定
+# ------------------------------------------------------------------------------
+
+# Option キーを Opt キーとして扱う
+macos-option-as-alt = left
+
+# システムボタンとタイトルバーを非表示 (流石に窮屈に見えるので余白も作る)
+macos-window-buttons = hidden
+macos-titlebar-style = tabs
+window-padding-x = 10
+window-padding-y = 10

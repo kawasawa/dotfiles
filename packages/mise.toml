@@ -1,0 +1,19 @@
+[tools]
+
+# Lang
+node = ["22.11.0", "24.11.1", "lts"]  # Node.js は偶数 ver. が LTS
+python = "latest"
+go = "latest"
+
+# IaC
+terraform = ["1.4.7", "1.9.8", "latest"]
+tflint = "latest"
+trivy = "latest"
+
+# IaaS/PaaS
+awscli = "latest"
+supabase = "latest"
+gh = "latest"
+
+# Other
+k6 = ["0.59.0", "latest"]

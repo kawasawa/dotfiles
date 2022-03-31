@@ -1,0 +1,6 @@
+{
+  "banner": "always",
+  "model": "gpt-5.4",
+  "effortLevel": "high",
+  "keepAlive": "on"
+}

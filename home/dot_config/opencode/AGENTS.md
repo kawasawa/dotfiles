@@ -1,0 +1,1 @@
+/Users/kawasawa/.claude/CLAUDE.md

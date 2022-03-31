@@ -1,0 +1,46 @@
+{
+  // 定義方法
+  //   see: https://opencode.ai/docs/config/
+  // モデル一覧
+  //   see: https://models.dev/model-schema.json
+  // OpenCode は Claude Code 用のインストラクションを自動で読み込む
+  //   see: https://opencode.ai/docs/rules/#claude-code-%E4%BA%92%E6%8F%9B%E6%80%A7
+  "$schema": "https://opencode.ai/config.json",
+  "model": "moonshotai/kimi-k2.6",
+  "small_model": "deepseek/deepseek-v4-flash",
+  "autoupdate": true,
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.keystore": "deny",
+      ".ssh/*": "deny",
+      ".aws/*": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "sudo *": "deny",
+      "rm -rf *": "deny",
+      "git reset --hard *": "deny",
+      "gh repo delete *": "deny",
+      "gh auth token *": "deny",
+      "rm *": "ask",
+      "chmod *": "ask",
+      "curl *": "ask",
+      "wget *": "ask",
+      "git checkout *": "ask",
+      "git switch *": "ask",
+      "git pull *": "ask",
+      "git clean *": "ask",
+      "git reset *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask",
+      "git rebase *": "ask",
+      "gh pr create *": "ask",
+      "gh pr merge *": "ask"
+    }
+  }
+}

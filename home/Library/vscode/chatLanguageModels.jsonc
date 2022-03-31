@@ -1,0 +1,14 @@
+[
+	{
+		"name": "Copilot CLI",
+		"vendor": "copilotcli",
+		"settings": {
+			"claude-sonnet-4.6": {
+				"reasoningEffort": "high"
+			},
+			"gpt-5.4": {
+				"reasoningEffort": "high"
+			}
+		}
+	}
+]
