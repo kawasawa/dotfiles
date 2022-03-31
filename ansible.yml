@@ -1,0 +1,56 @@
+# ------------------------------------------------------------------------------
+# 注意
+#   設定ファイルの配布は chezmoi が担当する
+#   本 Playbook はパッケージ・ランタイム・拡張機能の導入のみを扱う
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# mise セットアップ
+# ------------------------------------------------------------------------------
+- name: Setup mise
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+    mise_source: "{{ repos }}/packages"
+    mise_dest: "{{ ansible_facts.env.HOME }}/.config/mise"
+  tasks:
+    - name: Migrate mise config
+      copy:
+        src: "{{ mise_source }}/mise.toml"
+        dest: "{{ mise_dest }}/config.toml"
+    - name: Install mise packages
+      shell: |
+        mise trust
+        mise install
+      # shell は自由度が高い反面、環境依存の温床になるため推奨はしない
+
+# ------------------------------------------------------------------------------
+# VSCode 拡張機能セットアップ
+# ------------------------------------------------------------------------------
+- name: Setup VSCode extensions
+  hosts: localhost
+  connection: local
+  vars:
+    repos: "{{ ansible_facts.env.HOME }}/repos/dotfiles"
+  tasks:
+    # 次の処理が重いので一旦間を入れる
+    # (スキップしたければこのタイミングで)
+    - name: beep
+      command: afplay /System/Library/Sounds/Ping.aiff
+      ignore_errors: true # 実行時のエラーを無視
+    - name: pause
+      pause:
+        seconds: 10 # 指定時間の待機だけでなく、次の Task を即時実行 or この Play を中断 も可能
+
+    # 拡張機能のインストール
+    - name: Install VSCode extensions
+      shell: |
+        code --install-extension "{{ item }}"
+        sleep 0.5 # 拡張機能のインストールを連続で実施するとロックが取れずにコケるので間隔を空ける
+      loop: "{{ lookup('file', repos ~ '/packages/vscode').splitlines() }}"
+      register: extension_install_result
+      until: extension_install_result.rc == 0
+      retries: 2 # 各ループでエラーが起きた場合に再施行
+      delay: 2 # リトライ時は念の為間を空ける
+      ignore_errors: true # 最終的に失敗した場合も無視

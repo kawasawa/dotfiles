@@ -1,0 +1,21 @@
+name: Local LLM Config
+version: 1.0.0
+schema: v1
+models:
+  - name: Qwen 3.5
+    model: qwen3.5:4b-q8_0
+    provider: ollama
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+  - name: Qwen 2.5 Coder
+    model: qwen2.5-coder:3b-base
+    provider: ollama
+    apiBase: http://localhost:11434
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 600
+    defaultCompletionOptions:
+      reasoning: false
