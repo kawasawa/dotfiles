@@ -1,0 +1,19 @@
+# ファイル編集アプリに関連付ける拡張子を定義する
+.txt
+.log
+.md
+.ini
+.cnf
+.conf
+.json
+.jsonc
+.jsonl
+.xml
+.yml
+.toml
+.sh
+.bash
+.zsh
+.ps1
+.bat
+.sql
