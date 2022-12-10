@@ -1,0 +1,297 @@
+{
+  // ************************************************************
+  // 基本動作
+  // ************************************************************
+
+  // Window
+  "workbench.colorTheme": "Dracula",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "newUntitledFile",
+  "window.commandCenter": true,
+  "window.openFilesInNewWindow": "off",
+  "window.openFoldersInNewWindow": "default",
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // Explorer
+  "explorer.openEditors.visible": 0,
+  "explorer.autoReveal": true,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "workbench.list.horizontalScrolling": false,
+  "workbench.tree.renderIndentGuides": "always",
+
+  // Editor
+  "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 13,
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "off",
+  "editor.mouseWheelZoom": false,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": false,
+  "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.roundedSelection": false,
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.showFoldingControls": "always",
+  "editor.matchBrackets": "always",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.minimap.enabled": false,
+  "editor.minimap.maxColumn": 60,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+  "editor.overviewRulerBorder": false,
+  "editor.tabCompletion": "onlySnippets",
+  "editor.suggestSelection": "first",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.accessibilitySupport": "off",
+  "workbench.editor.revealIfOpen": true,
+  "workbench.editor.openPositioning": "last",
+  "workbench.editor.tabSizing": "shrink",
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.icons": true,
+  "breadcrumbs.filePath": "on",
+
+  // Terminal
+  "terminal.integrated.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.rightClickBehavior": "default",
+
+  // Debug
+  "debug.inlineValues": "auto",
+  "debug.openDebug": "openOnDebugBreak",
+  "debug.showInStatusBar": "always",
+
+  // Files
+  "files.hotExit": "off",
+  "files.autoSave": "off",
+  "files.autoGuessEncoding": true,
+
+  // Git
+  "git.confirmSync": true,
+  "git.ignoreLegacyWarning": true,
+  "git.ignoreMissingGitWarning": true,
+
+  // GitLens
+  "gitlens.keymap": "alternate",
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "gitlens.advanced.messages": {
+    "suppressGitMissingWarning": true,
+    "suppressRebaseSwitchToTextWarning": true
+  },
+
+  // Keyboard Macro
+  "keyboardMacro.recordingShortcuts": "Option2",
+
+  // draw.io
+  "hediet.vscode-drawio.theme": "Kennedy",
+
+  // Project Manager
+  "projectManager.groupList": true,
+
+  // Todo Tree
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.buttons.export": true,
+  "todo-tree.tree.expanded": true,
+  "todo-tree.tree.flat": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "borderRadius": "0",
+    "gutterIcon": true
+  },
+
+  // Code Spell Checker
+  "cSpell.showCommandsInEditorContextMenu": false,
+
+  // Partial Diff
+  "partialDiff.commandsOnContextMenu": {
+    "diffVisibleEditors": false,
+    "togglePreComparisonTextNormalizationRules": false
+  },
+
+  // Version Lens
+  "versionlens.suggestions.showOnStartup": true,
+  "versionlens.suggestions.showPrereleasesOnStartup": false,
+  "versionlens.caching.duration": 60,
+
+  // Jest
+  "jest.autoRun": { "watch": false },
+
+  // C#
+  "csharp.suppressDotnetInstallWarning": true,
+
+  // ************************************************************
+  // 環境依存の設定
+  // ************************************************************
+
+  // Files
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "files.associations": {
+    "*.gs": "javascript",
+    "LICENSE": "plaintext"
+  },
+
+  // Terminal
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.env.windows": {
+    "PSExecutionPolicyPreference": "RemoteSigned"
+  },
+  "python.terminal.activateEnvironment": false,
+
+  // Project Manager
+  "projectManager.vscode.baseFolders": [
+    "~/repos/", // Mac OS
+    "~\\source\\repos" // Windows
+  ],
+  "projectManager.git.baseFolders": [
+    "~/repos/", // Mac OS
+    "~\\source\\repos" // Windows
+  ],
+
+  // Todo Tree
+  "todo-tree.general.tags": [
+    "BUG",
+    "Bug",
+    "bug",
+    "FIXME",
+    "Fixme",
+    "fixme",
+    "HACK",
+    "Hack",
+    "hack",
+    "OPTIMIZE",
+    "Optimize",
+    "optimize",
+    "TODO",
+    "ToDo",
+    "Todo",
+    "todo",
+    "UNDONE",
+    "Undone",
+    "undone"
+  ],
+  "todo-tree.general.tagGroups": {
+    "BUG": ["Bug", "bug", "FIXME", "Fixme", "fixme"],
+    "HACK": ["Hack", "hack", "OPTIMIZE", "Optimize", "optimize"],
+    "TODO": ["ToDo", "Todo", "todo", "UNDONE", "Undone", "undone"]
+  },
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "alert",
+      "iconColour": "#DF6B92",
+      "background": "#DF6B92",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold"
+    },
+    "HACK": {
+      "icon": "tools",
+      "iconColour": "#377E22",
+      "background": "#377E22",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold"
+    },
+    "TODO": {
+      "icon": "tasklist",
+      "iconColour": "#FFAE00",
+      "background": "#FFAE00",
+      "foreground": "#FFFFFF",
+      "fontWeight": "bold"
+    }
+  },
+
+  // Code Spell Checker
+  "cSpell.language": "en",
+  "cSpell.userWords": [
+    "cascadia",
+    "colour",
+    "consolas",
+    "drawio",
+    "hediet",
+    "intelephense",
+    "keymap",
+    "textlint",
+    "todohighlight",
+    "versionlens"
+  ],
+
+  // ************************************************************
+  // 規約依存の設定
+  // ************************************************************
+
+  // フォーマット処理
+  "editor.formatOnType": true, // 入力時にフォーマット
+  "editor.formatOnPaste": true, // ペースト時にフォーマット
+  "editor.formatOnSave": true, // 保存時にフォーマット
+  "files.trimTrailingWhitespace": true, // 行末の空白を除去
+  "files.trimFinalNewlines": true, // 最終行以降の空行を除去
+  "files.insertFinalNewline": true, // 最終行に空行を一行挿入
+
+  // テキスト校正くん
+  "japanese-proofreading.textlint.外来語カタカナ表記": false,
+  "japanese-proofreading.textlint.丸かっこ（）": false,
+  "japanese-proofreading.textlint.全角文字と半角文字の間": false,
+
+  // ************************************************************
+  // 言語依存の設定
+  //
+  // TODO: 言語ごとのフォーマットルールはワークスペースの設定で管理する
+  // ************************************************************
+
+  // Markdown
+  "markdown.preview.breaks": false, // プレビュー時の改行反映を無効化
+  "markdown-pdf.breaks": false, // PDF変換時の改行反映を無効化
+  "markdown-pdf.convertOnSave": false, // 保存時の自動変換を無効化
+  "markdown-pdf.displayHeaderFooter": false, // PDF変換時のヘッダー、フッターを非表示
+  "markdown-pdf.type": ["pdf"], // 変換フォーマットを指定
+  "markdownShortcuts.bold.marker": "**",
+  "markdownShortcuts.italics.marker": "_",
+  "markdownShortcuts.bullets.marker": "-",
+  "markdownShortcuts.icons.bold": false,
+  "markdownShortcuts.icons.italic": false,
+  "markdownShortcuts.icons.strikethrough": true,
+  "markdownShortcuts.icons.link": true,
+  "markdownShortcuts.icons.image": true,
+  "markdownShortcuts.icons.citations": true,
+  "markdownShortcuts.icons.bullets": false,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+
+  // SQL
+  "sql-formatter.dialect": "sql", // 準拠する SQL の種類を指定
+  "sql-formatter.uppercase": true, // キーワードを大文字に変換
+
+  // JavaScript
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true, // 戻り値の型をヒント表示
+  "javascript.inlayHints.parameterTypes.enabled": true, // 仮引数の型をヒント表示
+  "javascript.inlayHints.parameterNames.enabled": "all", // 仮引数の名前をヒント表示
+  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true, // 名称一致時は非表示
+  "javascript.suggest.completeFunctionCalls": true, // 括弧を付けてメソッドを補完
+
+  // TypeScript
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true, // 戻り値の型をヒント表示
+  "typescript.inlayHints.parameterTypes.enabled": true, // 仮引数の型をヒント表示
+  "typescript.inlayHints.parameterNames.enabled": "all", // 仮引数の名前をヒント表示
+  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true, // 名称一致時は非表示
+  "typescript.suggest.completeFunctionCalls": true, // 括弧を付けてメソッドを補完
+
+  // ************************************************************
+  // テレメトリの設定
+  //
+  // TODO: 拡張機能追加時に該当設定の有無を確認しメンテナンスする
+  // ************************************************************
+
+  "telemetry.telemetryLevel": "off",
+  "gitlens.telemetry.enabled": false,
+  "redhat.telemetry.enabled": false,
+  "partialDiff.enableTelemetry": false
+}

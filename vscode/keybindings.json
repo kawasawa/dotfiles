@@ -1,0 +1,139 @@
+[
+  // ************************************************************
+  // Windows の操作感と統一
+  // ************************************************************
+
+  // Intellisense: Command+Space
+  {
+    "key": "cmd+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+
+  // Terminal: Ctrl+@
+  {
+    "key": "ctrl+[BracketLeft]",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+
+  // MovePrev: Ctrl+Left
+  // MoveNext: Ctrl+Right
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.navigateForward"
+  },
+
+  // Redo: Command+Y
+  {
+    "key": "cmd+y",
+    "command": "redo"
+  },
+
+  // GotoLine: Command+G
+  {
+    "key": "cmd+g",
+    "command": "workbench.action.gotoLine"
+  },
+
+  // ************************************************************
+  // 使用感の向上
+  // ************************************************************
+
+  // Diff:              Command+D
+  // DiffWithClipboard: Command+Shift+D
+  {
+    "key": "cmd+d",
+    "command": "workbench.files.action.compareFileWith"
+  },
+  {
+    "key": "shift+cmd+d",
+    "command": "extension.partialDiff.diffSelectionWithClipboard"
+  },
+
+  // ZoomReset: Command+0
+  // ZoomUp:    Command+Plus
+  // ZoomOut:   Command+Minus
+  {
+    "key": "cmd+0",
+    "command": "editor.action.fontZoomReset"
+  },
+  {
+    "key": "cmd+[Semicolon]",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "cmd+[Minus]",
+    "command": "editor.action.fontZoomOut"
+  },
+
+  // FindReference: Shift+F12
+  // GotoReference: Shift+Option+F12
+  {
+    "key": "shift+f12",
+    "command": "references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "-references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "shift+f12",
+    "command": "-editor.action.goToReferences",
+    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+
+  // KeyMacro Recording Start/Finish: Command+Shift+M
+  // KeyMacro Playback:             : Command+Shift+L
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.startRecording",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+m",
+    "command": "kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+r",
+    "command": "-kb-macro.finishRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.playback",
+    "when": "!kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "-kb-macro.cancelRecording",
+    "when": "kb-macro.recording && config.keyboardMacro.recordingShortcuts == 'Option2'"
+  }
+]
